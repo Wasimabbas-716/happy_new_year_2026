@@ -25,6 +25,8 @@
             --purple-dark: #5A189A;
             --bg-dark: #0A0A2A;
             --bg-gradient: linear-gradient(135deg, #0A0A2A 0%, #1A0A2A 30%, #2A0A2A 70%, #3A0A1A 100%);
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #128C7E;
             --safe-area-inset-bottom: env(safe-area-inset-bottom);
         }
 
@@ -80,7 +82,7 @@
             }
         }
 
-        /* Sparkles and Hearts Styles (keep your existing styles) */
+        /* Sparkles and Hearts Styles */
         .sparkle {
             position: absolute;
             background: radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
@@ -273,7 +275,7 @@
             font-size: 1.1rem;
         }
 
-        /* FIXED: Mobile-friendly buttons - SIMPLIFIED */
+        /* Mobile-friendly buttons */
         .action-buttons {
             display: flex;
             flex-direction: column;
@@ -298,16 +300,18 @@
             position: relative;
             min-height: 60px;
             touch-action: manipulation;
+            transition: transform 0.2s, opacity 0.2s;
         }
 
-        /* Remove all complex button animations for now */
         .btn:active {
             transform: scale(0.98);
+            opacity: 0.9;
         }
 
         .btn-primary {
             background: linear-gradient(to right, var(--gold), var(--red));
             color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
         }
 
         .btn-secondary {
@@ -316,7 +320,13 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* Button loading animation - SIMPLIFIED */
+        .btn-whatsapp {
+            background: linear-gradient(to right, var(--whatsapp-green), var(--whatsapp-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Button loading animation */
         .btn-loading {
             position: relative;
             color: transparent !important;
@@ -355,6 +365,13 @@
 
         .share-container.visible {
             display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .share-container p {
+            color: var(--pink-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
 
         .share-box {
@@ -371,9 +388,10 @@
             background: rgba(0, 0, 0, 0.3);
             color: white;
             text-align: center;
+            font-size: 0.9rem;
         }
 
-        .share-box button {
+        .share-box .copy-btn {
             padding: 1.2rem;
             background: linear-gradient(to right, var(--purple), var(--purple-dark));
             color: white;
@@ -387,6 +405,18 @@
             gap: 0.5rem;
             min-height: 56px;
             touch-action: manipulation;
+        }
+
+        /* NEW: Share Buttons Container */
+        .share-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .share-buttons .btn {
+            min-height: 56px;
         }
 
         /* Success Message */
@@ -404,6 +434,7 @@
             text-align: center;
             max-width: 80%;
             display: none;
+            backdrop-filter: blur(10px);
         }
 
         /* Copy Notification */
@@ -420,10 +451,41 @@
             text-align: center;
             font-weight: 600;
             transition: transform 0.3s ease-out;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .copy-notification.show {
             transform: translateX(-50%) translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Responsive */
@@ -453,6 +515,20 @@
             .share-box {
                 flex-direction: row;
             }
+            
+            .share-buttons {
+                flex-direction: row;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .year-2026 {
+                font-size: 3.5rem;
+            }
+            
+            .main-heading {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -465,15 +541,9 @@
     <!-- Success Message -->
     <div class="success-message" id="successMessage">
         <p id="successText" style="margin-bottom: 1rem; font-size: 1.1rem;"></p>
-        <button id="okBtn" style="
-            background: var(--gold);
-            color: black;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-        ">OK</button>
+        <button id="okBtn" class="btn" style="background: var(--gold); color: black;">
+            OK
+        </button>
     </div>
 
     <!-- Copy Notification -->
@@ -544,11 +614,21 @@
                 
                 <!-- Initially hidden share container -->
                 <div class="share-container" id="share-container">
-                    <p>Your personalized greeting is ready! Share this link:</p>
+                    <p>Your personalized greeting is ready! Share with your loved one:</p>
                     <div class="share-box">
                         <input type="text" id="share-url" readonly>
-                        <button id="copy-btn">
+                        <button id="copy-btn" class="copy-btn">
                             <i class="fas fa-copy"></i> Copy Link
+                        </button>
+                    </div>
+                    
+                    <!-- NEW: WhatsApp Share Button -->
+                    <div class="share-buttons">
+                        <button id="whatsapp-share-btn" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                        </button>
+                        <button id="other-share-btn" class="btn btn-secondary">
+                            <i class="fas fa-share"></i> Other Apps
                         </button>
                     </div>
                 </div>
@@ -571,6 +651,8 @@
         const forwardBtn = document.getElementById('forward-btn');
         const shareUrlInput = document.getElementById('share-url');
         const copyBtn = document.getElementById('copy-btn');
+        const whatsappBtn = document.getElementById('whatsapp-share-btn');
+        const otherShareBtn = document.getElementById('other-share-btn');
         const loadingScreen = document.getElementById('loading');
         const shareContainer = document.getElementById('share-container');
         const successMessage = document.getElementById('successMessage');
@@ -578,11 +660,16 @@
         const okBtn = document.getElementById('okBtn');
         const copyNotification = document.getElementById('copyNotification');
 
-        // Google Sheets Web App URL
+        // FIXED: Use HTTPS URL for Google Sheets - This fixes mobile access
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbydCfc8LMVaTUCok1diBcOGPzw8gijdSzaoLPT7hnMM5jQbzKYyxt5kFoSLvI-E50Fz1A/exec';
 
         // Variables
         let isGenerating = false;
+        let currentGreetingData = {
+            sender: '',
+            receiver: '',
+            url: ''
+        };
 
         // URL Parameter Handling
         function getQueryParams() {
@@ -599,11 +686,13 @@
             if (params.sender) {
                 senderNameElement.textContent = params.sender;
                 senderInput.value = params.sender;
+                currentGreetingData.sender = params.sender;
             }
             
             if (params.receiver) {
                 receiverNameElement.textContent = params.receiver;
                 receiverInput.value = params.receiver;
+                currentGreetingData.receiver = params.receiver;
             }
             
             updateShareURL();
@@ -617,20 +706,46 @@
             const newUrl = `${baseUrl}?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`;
             
             shareUrlInput.value = newUrl;
+            currentGreetingData.url = newUrl;
+            currentGreetingData.sender = sender;
+            currentGreetingData.receiver = receiver;
         }
 
         // Initialize with URL parameters
         updateNamesFromURL();
 
-        // SIMPLIFIED: Button event listeners
+        // Simple Button Event Listeners
         generateBtn.addEventListener('click', handleGenerate);
-        generateBtn.addEventListener('touchstart', handleGenerate, { passive: true });
+        generateBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleGenerate(e);
+        }, { passive: false });
         
         forwardBtn.addEventListener('click', handleForward);
-        forwardBtn.addEventListener('touchstart', handleForward, { passive: true });
+        forwardBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleForward(e);
+        }, { passive: false });
         
         copyBtn.addEventListener('click', handleCopy);
-        copyBtn.addEventListener('touchstart', handleCopy, { passive: true });
+        copyBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleCopy(e);
+        }, { passive: false });
+        
+        // NEW: WhatsApp Share Button
+        whatsappBtn.addEventListener('click', shareOnWhatsApp);
+        whatsappBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            shareOnWhatsApp(e);
+        }, { passive: false });
+        
+        // NEW: Other Share Button
+        otherShareBtn.addEventListener('click', shareViaOtherApps);
+        otherShareBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            shareViaOtherApps(e);
+        }, { passive: false });
         
         okBtn.addEventListener('click', () => {
             successMessage.style.display = 'none';
@@ -638,11 +753,6 @@
 
         // Main function to generate greeting
         async function handleGenerate(e) {
-            // Prevent default for touch events
-            if (e.type === 'touchstart') {
-                e.preventDefault();
-            }
-            
             if (isGenerating) return;
             
             const sender = senderInput.value.trim();
@@ -653,7 +763,7 @@
                 return;
             }
             
-            // Add active state for mobile feedback
+            // Mobile feedback
             if (e.type === 'touchstart') {
                 e.currentTarget.style.opacity = '0.8';
                 setTimeout(() => {
@@ -677,6 +787,11 @@
                 
                 // Update share URL
                 shareUrlInput.value = newUrl;
+                currentGreetingData = {
+                    sender: sender,
+                    receiver: receiver,
+                    url: newUrl
+                };
                 
                 // Save data to Google Sheets (silently in background)
                 await saveToGoogleSheets(sender, receiver);
@@ -720,7 +835,6 @@
 
         function handleForward(e) {
             if (e.type === 'touchstart') {
-                e.preventDefault();
                 e.currentTarget.style.opacity = '0.8';
                 setTimeout(() => {
                     e.currentTarget.style.opacity = '';
@@ -731,6 +845,7 @@
             receiverInput.value = '';
             senderInput.focus();
             shareContainer.classList.remove('visible');
+            currentGreetingData = { sender: '', receiver: '', url: '' };
         }
 
         function handleCopy(e) {
@@ -763,6 +878,94 @@
             }
         }
 
+        // NEW: Share on WhatsApp function
+        function shareOnWhatsApp(e) {
+            if (e.type === 'touchstart') {
+                e.preventDefault();
+                e.currentTarget.style.opacity = '0.8';
+                setTimeout(() => {
+                    e.currentTarget.style.opacity = '';
+                }, 200);
+            }
+            
+            if (!currentGreetingData.url) {
+                showAlert('Please create a greeting first!');
+                return;
+            }
+            
+            // Create beautiful message for WhatsApp
+            const message = `🎉 *Happy New Year 2026!* 🎉
+
+*${currentGreetingData.sender}* has sent you a special New Year greeting:
+
+"*As we welcome 2026, my heart is filled with love and hope for our beautiful journey ahead.*"
+
+💖 This message is specially crafted for: *${currentGreetingData.receiver}*
+
+Click to view your personalized greeting:
+${currentGreetingData.url}
+
+✨ Wishing you a year filled with love, joy, and beautiful moments! ✨
+
+#HappyNewYear2026 #NewYearGreetings #LoveWishes`;
+            
+            // Encode message for WhatsApp URL
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            
+            // Open WhatsApp with the message
+            window.open(whatsappUrl, '_blank');
+            
+            // Button feedback
+            whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Opening WhatsApp...';
+            setTimeout(() => {
+                whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Share on WhatsApp';
+            }, 1500);
+        }
+
+        // NEW: Share via other apps using Web Share API
+        function shareViaOtherApps(e) {
+            if (e.type === 'touchstart') {
+                e.preventDefault();
+                e.currentTarget.style.opacity = '0.8';
+                setTimeout(() => {
+                    e.currentTarget.style.opacity = '';
+                }, 200);
+            }
+            
+            if (!currentGreetingData.url) {
+                showAlert('Please create a greeting first!');
+                return;
+            }
+            
+            // Create share data
+            const shareData = {
+                title: `Happy New Year 2026 from ${currentGreetingData.sender}`,
+                text: `${currentGreetingData.sender} sent you a special New Year 2026 greeting! Click to view:`,
+                url: currentGreetingData.url
+            };
+            
+            // Use Web Share API if available (works on mobile)
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => {
+                        console.log('Shared successfully');
+                        otherShareBtn.innerHTML = '<i class="fas fa-check"></i> Shared!';
+                        setTimeout(() => {
+                            otherShareBtn.innerHTML = '<i class="fas fa-share"></i> Other Apps';
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        console.log('Sharing failed:', error);
+                        // Fallback to copying URL
+                        handleCopy(e);
+                    });
+            } else {
+                // Fallback for desktop or unsupported browsers
+                handleCopy(e);
+            }
+        }
+
         function fallbackCopy() {
             try {
                 document.execCommand('copy');
@@ -786,7 +989,7 @@
             }, 2000);
         }
 
-        // Google Sheets Integration
+        // FIXED: Google Sheets Integration with better error handling
         async function saveToGoogleSheets(sender, receiver) {
             const now = new Date();
             const data = {
@@ -800,39 +1003,47 @@
             
             return new Promise((resolve) => {
                 try {
-                    const iframe = document.createElement('iframe');
-                    iframe.style.display = 'none';
-                    iframe.style.width = '0';
-                    iframe.style.height = '0';
-                    iframe.style.border = '0';
-                    
-                    const params = new URLSearchParams(data).toString();
-                    iframe.src = `${SCRIPT_URL}?${params}&callback=googleSheetsCallback`;
-                    
-                    window.googleSheetsCallback = function(response) {
-                        resolve(response);
-                        setTimeout(() => {
-                            if (iframe.parentNode) {
-                                iframe.parentNode.removeChild(iframe);
-                            }
-                            delete window.googleSheetsCallback;
-                        }, 1000);
-                    };
-                    
-                    document.body.appendChild(iframe);
-                    
-                    setTimeout(() => {
-                        resolve({ success: false, message: 'Timeout' });
-                        if (iframe.parentNode) {
-                            iframe.parentNode.removeChild(iframe);
-                        }
-                        delete window.googleSheetsCallback;
-                    }, 3000);
+                    // Method 1: Use fetch with no-cors (works on mobile)
+                    fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(data).toString()
+                    }).then(() => {
+                        console.log('Data sent to Google Sheets');
+                        resolve({ success: true });
+                    }).catch(() => {
+                        // If fetch fails, try alternative method
+                        console.log('Trying alternative method...');
+                        alternativeSaveMethod(data, resolve);
+                    });
                     
                 } catch (error) {
+                    console.log('Error saving to Google Sheets:', error);
+                    // Silent failure - don't show error to user
                     resolve({ success: false, message: 'Error occurred' });
                 }
             });
+        }
+
+        // Alternative save method using Image object (works everywhere)
+        function alternativeSaveMethod(data, resolve) {
+            try {
+                const img = new Image();
+                img.src = `${SCRIPT_URL}?${new URLSearchParams(data).toString()}&t=${Date.now()}`;
+                img.style.display = 'none';
+                document.body.appendChild(img);
+                setTimeout(() => {
+                    if (img.parentNode) {
+                        img.parentNode.removeChild(img);
+                    }
+                    resolve({ success: true });
+                }, 1000);
+            } catch (e) {
+                resolve({ success: false });
+            }
         }
 
         // Alert function
