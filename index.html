@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: rgba(255, 215, 0, 0.3);
             -webkit-font-smoothing: antialiased;
         }
 
@@ -42,6 +42,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             padding-bottom: calc(20px + var(--safe-area-inset-bottom));
             position: relative;
+            touch-action: manipulation;
         }
 
         /* Background Animation */
@@ -300,9 +301,10 @@
             padding: 0 0.5rem;
             position: relative;
             z-index: 2;
+            font-style: italic;
         }
 
-        /* Greeting Container */
+        /* Greeting Card */
         .greeting-card {
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(15px);
@@ -466,7 +468,7 @@
                         0 0 15px rgba(255, 215, 0, 0.1);
         }
 
-        /* Mobile-friendly buttons */
+        /* Mobile-friendly buttons - ENHANCED FOR MOBILE */
         .action-buttons {
             display: flex;
             flex-direction: column;
@@ -475,7 +477,7 @@
         }
 
         .btn {
-            padding: 1.1rem;
+            padding: 1.2rem; /* Increased padding for better touch */
             border: none;
             border-radius: 15px;
             font-size: 1.1rem;
@@ -491,10 +493,29 @@
             user-select: none;
             position: relative;
             overflow: hidden;
+            min-height: 56px; /* Minimum touch target size */
+        }
+
+        /* Extra large touch target for mobile */
+        @media (max-width: 768px) {
+            .btn {
+                min-height: 60px;
+                padding: 1.3rem;
+            }
+            
+            .btn::after {
+                content: '';
+                position: absolute;
+                top: -10px;
+                left: -10px;
+                right: -10px;
+                bottom: -10px;
+            }
         }
 
         .btn:active {
-            transform: scale(0.97);
+            transform: scale(0.95);
+            transition: transform 0.1s;
         }
 
         .btn-primary {
@@ -519,14 +540,14 @@
         .btn-loading::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             margin: auto;
-            border: 2px solid transparent;
+            border: 3px solid transparent;
             border-top-color: white;
             border-radius: 50%;
             animation: button-spinner 0.8s linear infinite;
@@ -606,7 +627,7 @@
         }
 
         .share-box button {
-            padding: 1rem;
+            padding: 1.2rem; /* Increased padding */
             background: linear-gradient(to right, var(--purple), var(--purple-dark));
             color: white;
             border: none;
@@ -622,10 +643,12 @@
             user-select: none;
             position: relative;
             overflow: hidden;
+            min-height: 56px;
         }
 
         .share-box button:active {
-            transform: scale(0.97);
+            transform: scale(0.95);
+            transition: transform 0.1s;
         }
 
         /* Footer */
@@ -718,6 +741,28 @@
                         0 0 30px rgba(255, 215, 0, 0.2);
         }
 
+        /* Mobile Copy Button Notification */
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            z-index: 1000;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .copy-notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
         /* Responsive */
         @media (min-width: 425px) {
             .year-2026 {
@@ -767,7 +812,7 @@
             
             .btn {
                 width: auto;
-                padding: 1.2rem 2rem;
+                padding: 1.3rem 2rem;
             }
             
             .share-box {
@@ -797,7 +842,13 @@
             border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
+            min-height: 50px;
         ">OK</button>
+    </div>
+
+    <!-- Copy Notification -->
+    <div class="copy-notification" id="copyNotification">
+        <i class="fas fa-check-circle"></i> Link Copied to Clipboard!
     </div>
 
     <!-- Background Animation -->
@@ -809,7 +860,7 @@
         <header>
             <div class="year-2026">2026</div>
             <h1 class="main-heading">Happy New Year</h1>
-            <p class="sub-text">Romantic wishes filled with love, happiness, and new beginnings</p>
+            <p class="sub-text">Celebrate new beginnings with love, joy, and endless possibilities</p>
         </header>
 
         <main>
@@ -870,13 +921,16 @@
                             <i class="fas fa-copy"></i> Copy Link
                         </button>
                     </div>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--pink-light); opacity: 0.7;">
+                        <i class="fas fa-hand-pointer"></i> Tap to copy, then share via WhatsApp, Instagram, or any messaging app
+                    </p>
                 </div>
             </div>
         </main>
 
         <footer>
             <p>Made with <i class="fas fa-heart" style="color: var(--red);"></i> for 2026</p>
-            <p>Share love & spread joy</p>
+            <p>Spread love & create beautiful memories</p>
         </footer>
     </div>
 
@@ -896,6 +950,7 @@
         const successMessage = document.getElementById('successMessage');
         const successText = document.getElementById('successText');
         const okBtn = document.getElementById('okBtn');
+        const copyNotification = document.getElementById('copyNotification');
 
         // Google Sheets Web App URL - REPLACE WITH YOUR URL
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbydCfc8LMVaTUCok1diBcOGPzw8gijdSzaoLPT7hnMM5jQbzKYyxt5kFoSLvI-E50Fz1A/exec';
@@ -904,6 +959,7 @@
         let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         let lastTap = 0;
         let isGenerating = false;
+        let touchStartTime = 0;
 
         // URL Parameter Handling
         function getQueryParams() {
@@ -943,240 +999,102 @@
         // Initialize with URL parameters
         updateNamesFromURL();
 
-        // NEW: Create enhanced background elements
-        function createEnhancedBackground() {
-            // Create glowing orbs
-            for (let i = 0; i < 8; i++) {
-                setTimeout(() => createGlowingOrb(), i * 1000);
-            }
+        // NEW: Enhanced mobile button handling
+        function setupMobileButtonHandling() {
+            if (!isMobile) return;
             
-            // Create sparkles of different sizes
-            for (let i = 0; i < 50; i++) {
-                setTimeout(() => createSparkle(), i * 100);
-            }
+            // Add touch feedback to all buttons
+            const allButtons = document.querySelectorAll('.btn, .share-box button, #okBtn');
             
-            // Create floating hearts of different sizes
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => createEnhancedHeart(), i * 300);
-            }
-            
-            // Create joy elements (stars, music notes, etc.)
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => createJoyElement(), i * 500);
-            }
-            
-            // Create occasional fireworks
-            setInterval(() => {
-                if (Math.random() > 0.7) {
-                    createFirework();
-                }
-            }, 2000);
-            
-            // Create heart pulses around the header
-            setInterval(() => {
-                createHeartPulse();
-            }, 1500);
-        }
-
-        // NEW: Create glowing orbs
-        function createGlowingOrb() {
-            const orb = document.createElement('div');
-            orb.className = 'glowing-orb';
-            
-            const posX = Math.random() * 100;
-            const posY = Math.random() * 100;
-            const size = Math.random() * 40 + 20;
-            const duration = Math.random() * 30 + 30;
-            
-            orb.style.width = `${size}px`;
-            orb.style.height = `${size}px`;
-            orb.style.left = `${posX}vw`;
-            orb.style.top = `${posY}vh`;
-            orb.style.animationDuration = `${duration}s`;
-            orb.style.animationDelay = `${Math.random() * 5}s`;
-            
-            // Random color
-            const colors = [
-                'rgba(255, 215, 0, 0.2)',
-                'rgba(255, 77, 109, 0.2)',
-                'rgba(199, 125, 255, 0.2)',
-                'rgba(255, 143, 163, 0.2)'
-            ];
-            orb.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
-            
-            bgAnimation.appendChild(orb);
-            
-            // Remove after animation completes
-            setTimeout(() => {
-                if (orb.parentNode) {
-                    orb.parentNode.removeChild(orb);
-                    createGlowingOrb(); // Create new one
-                }
-            }, duration * 1000);
-        }
-
-        // NEW: Create sparkles
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            const sizes = ['sparkle-large', 'sparkle-medium', 'sparkle-small'];
-            const sizeClass = sizes[Math.floor(Math.random() * sizes.length)];
-            
-            sparkle.className = `sparkle ${sizeClass}`;
-            
-            const posX = Math.random() * 100;
-            const posY = Math.random() * 100;
-            
-            sparkle.style.left = `${posX}vw`;
-            sparkle.style.top = `${posY}vh`;
-            
-            // Random color variation
-            const colors = ['#FFD700', '#FFEC8B', '#FF8FA3', '#C77DFF', '#FFFFFF'];
-            sparkle.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
-            
-            bgAnimation.appendChild(sparkle);
-            
-            // Remove and recreate for continuous animation
-            setTimeout(() => {
-                if (sparkle.parentNode) {
-                    sparkle.parentNode.removeChild(sparkle);
-                }
-                createSparkle();
-            }, 3000 + Math.random() * 2000);
-        }
-
-        // NEW: Enhanced floating hearts
-        function createEnhancedHeart() {
-            const heart = document.createElement('div');
-            const sizes = ['heart-large', 'heart-medium', 'heart-small'];
-            const sizeClass = sizes[Math.floor(Math.random() * sizes.length)];
-            
-            heart.className = `heart ${sizeClass}`;
-            heart.innerHTML = '❤';
-            
-            const posX = Math.random() * 100;
-            const duration = Math.random() * 15 + 10;
-            const colors = ['#FF4D6D', '#FF8FA3', '#C77DFF', '#FFD700', '#FF6B9D'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            
-            heart.style.left = `${posX}vw`;
-            heart.style.color = color;
-            heart.style.animationDuration = `${duration}s`;
-            heart.style.animationDelay = `${Math.random() * 5}s`;
-            
-            bgAnimation.appendChild(heart);
-            
-            setTimeout(() => {
-                if (heart.parentNode) {
-                    heart.parentNode.removeChild(heart);
-                }
-            }, duration * 1000);
-        }
-
-        // NEW: Create joy elements (stars, music notes, etc.)
-        function createJoyElement() {
-            const element = document.createElement('div');
-            element.className = 'joy-element';
-            
-            const symbols = ['★', '☆', '♪', '♫', '❄', '✦', '✧', '♥', '☾'];
-            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-            
-            element.innerHTML = symbol;
-            element.style.left = `${Math.random() * 100}vw`;
-            element.style.top = `${Math.random() * 100}vh`;
-            element.style.fontSize = `${Math.random() * 20 + 15}px`;
-            element.style.color = ['#FFD700', '#FF4D6D', '#C77DFF', '#FF8FA3'][Math.floor(Math.random() * 4)];
-            element.style.animation = `floatUp ${Math.random() * 20 + 15}s linear forwards`;
-            element.style.animationDelay = `${Math.random() * 5}s`;
-            
-            bgAnimation.appendChild(element);
-            
-            setTimeout(() => {
-                if (element.parentNode) {
-                    element.parentNode.removeChild(element);
-                }
-            }, 25000);
-        }
-
-        // NEW: Create fireworks
-        function createFirework() {
-            const firework = document.createElement('div');
-            firework.className = 'firework';
-            
-            const posX = Math.random() * 100;
-            const colors = ['#FFD700', '#FF4D6D', '#C77DFF', '#4CAF50', '#2196F3'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            
-            firework.style.left = `${posX}vw`;
-            firework.style.top = '100vh';
-            firework.style.background = color;
-            firework.style.boxShadow = `0 0 15px ${color}`;
-            
-            bgAnimation.appendChild(firework);
-            
-            // Animate firework
-            const animation = firework.animate([
-                { transform: 'translateY(0) scale(1)', opacity: 1 },
-                { transform: `translateY(-${window.innerHeight - 100}px) scale(1.5)`, opacity: 0 }
-            ], {
-                duration: 1500,
-                easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+            allButtons.forEach(button => {
+                // Remove existing listeners to avoid duplicates
+                button.removeEventListener('touchstart', handleTouchStart);
+                button.removeEventListener('touchend', handleTouchEnd);
+                button.removeEventListener('touchcancel', handleTouchCancel);
+                
+                // Add new listeners
+                button.addEventListener('touchstart', handleTouchStart, { passive: true });
+                button.addEventListener('touchend', handleTouchEnd, { passive: true });
+                button.addEventListener('touchcancel', handleTouchCancel, { passive: true });
+                
+                // Prevent context menu on long press
+                button.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    return false;
+                });
             });
             
-            animation.onfinish = () => {
-                if (firework.parentNode) {
-                    firework.parentNode.removeChild(firework);
-                }
-            };
+            // Also handle inputs for better mobile experience
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    // Scroll input into view with padding
+                    setTimeout(() => {
+                        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            });
         }
 
-        // NEW: Create heart pulses
-        function createHeartPulse() {
-            const heart = document.createElement('div');
-            heart.className = 'heart-pulse';
-            heart.innerHTML = '❤';
+        // Touch event handlers for better mobile response
+        function handleTouchStart(e) {
+            touchStartTime = Date.now();
+            const button = e.currentTarget;
+            button.style.transform = 'scale(0.97)';
+            button.style.transition = 'transform 0.1s';
             
-            // Position around the header area
-            const containerRect = document.querySelector('.container').getBoundingClientRect();
-            const headerRect = document.querySelector('header').getBoundingClientRect();
+            // Create touch feedback
+            const touch = e.touches[0];
+            createTouchFeedback(touch.clientX, touch.clientY);
+        }
+
+        function handleTouchEnd(e) {
+            const button = e.currentTarget;
+            const touchDuration = Date.now() - touchStartTime;
             
-            const posX = Math.random() * containerRect.width;
-            const posY = headerRect.top + Math.random() * headerRect.height;
+            // Only trigger click if touch was short (not a long press)
+            if (touchDuration < 500) {
+                // Trigger click event
+                e.preventDefault();
+                button.click();
+            }
             
-            heart.style.left = `${posX}px`;
-            heart.style.top = `${posY}px`;
-            heart.style.color = ['#FF4D6D', '#FF8FA3', '#C77DFF'][Math.floor(Math.random() * 3)];
-            
-            document.body.appendChild(heart);
-            
+            // Reset button style
             setTimeout(() => {
-                if (heart.parentNode) {
-                    heart.parentNode.removeChild(heart);
-                }
-            }, 2000);
+                button.style.transform = '';
+                button.style.transition = '';
+            }, 100);
+        }
+
+        function handleTouchCancel(e) {
+            const button = e.currentTarget;
+            button.style.transform = '';
+            button.style.transition = '';
         }
 
         // Event listeners
         generateBtn.addEventListener('click', handleGenerate);
-        generateBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            createTouchFeedback(e.touches[0].clientX, e.touches[0].clientY);
-        });
-
         forwardBtn.addEventListener('click', handleForward);
-        forwardBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            createTouchFeedback(e.touches[0].clientX, e.touches[0].clientY);
-        });
-
         copyBtn.addEventListener('click', handleCopy);
-        copyBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            createTouchFeedback(e.touches[0].clientX, e.touches[0].clientY);
-        });
-
         okBtn.addEventListener('click', () => {
             successMessage.style.display = 'none';
         });
+
+        // Also add touch events for mobile
+        generateBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleTouchStart(e);
+        }, { passive: false });
+
+        forwardBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleTouchStart(e);
+        }, { passive: false });
+
+        copyBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleTouchStart(e);
+        }, { passive: false });
 
         // Handle double tap on mobile
         document.addEventListener('touchend', (e) => {
@@ -1193,6 +1111,16 @@
             
             lastTap = currentTime;
         });
+
+        // NEW: Improved copy notification
+        function showCopyNotification() {
+            copyNotification.classList.add('show');
+            
+            // Auto hide after 2 seconds
+            setTimeout(() => {
+                copyNotification.classList.remove('show');
+            }, 2000);
+        }
 
         // Create ripple effect on button click
         function createRipple(event) {
@@ -1228,7 +1156,9 @@
             }
             
             // Create ripple effect
-            createRipple(e);
+            if (e.type === 'click') {
+                createRipple(e);
+            }
             
             // Create celebration effects
             createCelebrationEffects();
@@ -1256,7 +1186,7 @@
                 // Show success animation on button
                 generateBtn.classList.remove('btn-loading');
                 generateBtn.classList.add('btn-success');
-                generateBtn.innerHTML = '<i class="fas fa-check"></i> Success!';
+                generateBtn.innerHTML = '<i class="fas fa-check"></i> Created Successfully!';
                 
                 // Wait a bit then show share container
                 setTimeout(() => {
@@ -1278,12 +1208,9 @@
                         }, 300);
                     }
                     
-                    // Auto-copy to clipboard on mobile
-                    if (isMobile) {
-                        setTimeout(() => {
-                            handleCopy();
-                        }, 1000);
-                    }
+                    // REMOVED: Auto-copy to clipboard on mobile
+                    // Users will now manually click the copy button
+                    
                 }, 1000);
                 
             } catch (error) {
@@ -1376,7 +1303,10 @@
             
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(shareUrlInput.value)
-                    .then(() => showCopyFeedback(true))
+                    .then(() => {
+                        showCopyFeedback(true);
+                        showCopyNotification(); // Show notification
+                    })
                     .catch(() => fallbackCopy());
             } else {
                 fallbackCopy();
@@ -1387,6 +1317,7 @@
             try {
                 document.execCommand('copy');
                 showCopyFeedback(true);
+                showCopyNotification(); // Show notification
             } catch (err) {
                 showCopyFeedback(false);
             }
@@ -1398,21 +1329,26 @@
             if (success) {
                 copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
                 copyBtn.style.background = 'linear-gradient(to right, #4CAF50, #2E7D32)';
-                showAlert('Link copied to clipboard! Share it with your loved one.');
                 
                 // Create celebration effects when copy is successful
                 for (let i = 0; i < 10; i++) {
                     setTimeout(() => createSparkle(), i * 100);
                 }
+                
+                // Show brief success message
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.style.background = 'linear-gradient(to right, var(--purple), var(--purple-dark))';
+                }, 2000);
             } else {
                 copyBtn.innerHTML = '<i class="fas fa-times"></i> Failed';
                 copyBtn.style.background = 'linear-gradient(to right, #f44336, #d32f2f)';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.style.background = 'linear-gradient(to right, var(--purple), var(--purple-dark))';
+                }, 2000);
             }
-            
-            setTimeout(() => {
-                copyBtn.innerHTML = originalText;
-                copyBtn.style.background = 'linear-gradient(to right, var(--purple), var(--purple-dark))';
-            }, 2000);
         }
 
         // FIXED Google Sheets Integration - No new tab opening
@@ -1526,7 +1462,132 @@
             }, 1500);
         }
 
-        // NEW: Create sparkles around an element
+        // Background element creation functions (same as before)
+        function createEnhancedBackground() {
+            // Create glowing orbs
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => createGlowingOrb(), i * 1000);
+            }
+            
+            // Create sparkles of different sizes
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createSparkle(), i * 100);
+            }
+            
+            // Create floating hearts of different sizes
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => createEnhancedHeart(), i * 300);
+            }
+            
+            // Create joy elements (stars, music notes, etc.)
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => createJoyElement(), i * 500);
+            }
+            
+            // Create occasional fireworks
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    createFirework();
+                }
+            }, 2000);
+            
+            // Create heart pulses around the header
+            setInterval(() => {
+                createHeartPulse();
+            }, 1500);
+        }
+
+        function createGlowingOrb() {
+            const orb = document.createElement('div');
+            orb.className = 'glowing-orb';
+            
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const size = Math.random() * 40 + 20;
+            const duration = Math.random() * 30 + 30;
+            
+            orb.style.width = `${size}px`;
+            orb.style.height = `${size}px`;
+            orb.style.left = `${posX}vw`;
+            orb.style.top = `${posY}vh`;
+            orb.style.animationDuration = `${duration}s`;
+            orb.style.animationDelay = `${Math.random() * 5}s`;
+            
+            // Random color
+            const colors = [
+                'rgba(255, 215, 0, 0.2)',
+                'rgba(255, 77, 109, 0.2)',
+                'rgba(199, 125, 255, 0.2)',
+                'rgba(255, 143, 163, 0.2)'
+            ];
+            orb.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
+            
+            bgAnimation.appendChild(orb);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                if (orb.parentNode) {
+                    orb.parentNode.removeChild(orb);
+                    createGlowingOrb(); // Create new one
+                }
+            }, duration * 1000);
+        }
+
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            const sizes = ['sparkle-large', 'sparkle-medium', 'sparkle-small'];
+            const sizeClass = sizes[Math.floor(Math.random() * sizes.length)];
+            
+            sparkle.className = `sparkle ${sizeClass}`;
+            
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            
+            sparkle.style.left = `${posX}vw`;
+            sparkle.style.top = `${posY}vh`;
+            
+            // Random color variation
+            const colors = ['#FFD700', '#FFEC8B', '#FF8FA3', '#C77DFF', '#FFFFFF'];
+            sparkle.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
+            
+            bgAnimation.appendChild(sparkle);
+            
+            // Remove and recreate for continuous animation
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+                createSparkle();
+            }, 3000 + Math.random() * 2000);
+        }
+
+        function createEnhancedHeart(parentElement = bgAnimation) {
+            const heart = document.createElement('div');
+            const sizes = ['heart-large', 'heart-medium', 'heart-small'];
+            const sizeClass = sizes[Math.floor(Math.random() * sizes.length)];
+            
+            heart.className = `heart ${sizeClass}`;
+            heart.innerHTML = '❤';
+            
+            const posX = Math.random() * 100;
+            const duration = Math.random() * 15 + 10;
+            const colors = ['#FF4D6D', '#FF8FA3', '#C77DFF', '#FFD700', '#FF6B9D'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            heart.style.left = `${posX}vw`;
+            heart.style.color = color;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            
+            parentElement.appendChild(heart);
+            
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, duration * 1000);
+        }
+
         function createSparkleAround(element) {
             const rect = element.getBoundingClientRect();
             const sparkle = document.createElement('div');
@@ -1598,6 +1659,9 @@
             
             // Create enhanced background elements
             createEnhancedBackground();
+            
+            // Setup mobile button handling
+            setupMobileButtonHandling();
             
             updateShareURL();
         });
