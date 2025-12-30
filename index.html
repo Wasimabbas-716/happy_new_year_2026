@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy New Year 2026 ❤️</title>
+    <title>Happy New Year 2026 ❤️✨🎉</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: rgba(255, 215, 0, 0.3);
+            -webkit-tap-highlight-color: rgba(255, 215, 0, 0.5);
             -webkit-font-smoothing: antialiased;
         }
 
         :root {
             --gold: #FFD700;
-            --gold-light: #FFEC8B;
-            --red: #FF4D6D;
-            --pink: #FF8FA3;
+            --gold-dark: #FFA500;
+            --gold-light: #FFF8DC;
+            --red: #FF3366;
+            --red-dark: #CC0044;
+            --pink: #FF66B2;
+            --pink-dark: #E60073;
             --pink-light: #FFB3C6;
-            --purple: #C77DFF;
-            --purple-dark: #5A189A;
-            --bg-dark: #0A0A2A;
+            --purple: #9933FF;
+            --purple-dark: #6600CC;
+            --blue: #3399FF;
+            --blue-dark: #0066CC;
+            --green: #33FF99;
+            --green-dark: #00CC66;
+            --cyan: #33FFFF;
+            --cyan-dark: #00CCCC;
+            --orange: #FF9933;
+            --orange-dark: #CC6600;
+            --bg-dark: #0A0A1A;
+            --bg-darker: #050510;
+            --text-light: #FFFFFF;
             --whatsapp: #25D366;
+            --whatsapp-dark: #128C7E;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
             width: 100%;
         }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0A0A2A 0%, #1A0A2A 30%, #2A0A2A 70%, #3A0A1A 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 30%, #150A2A 70%, #2A0A15 100%);
+            color: var(--text-light);
             overflow-x: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             padding-bottom: 20px;
         }
 
@@ -48,56 +64,199 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+            overflow: hidden;
         }
 
         .moving-gradient {
             position: absolute;
             top: 0;
             left: 0;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, rgba(10,10,42,.95), rgba(26,10,42,.95), rgba(42,10,42,.95), rgba(58,10,26,.95));
-            animation: moveGradient 30s ease-in-out infinite alternate;
+            width: 300%;
+            height: 300%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 51, 102, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(153, 51, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(51, 153, 255, 0.1) 0%, transparent 50%);
+            animation: moveGradient 40s ease-in-out infinite alternate;
         }
 
         @keyframes moveGradient {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-30px, -30px) rotate(1deg); }
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(-50px, -30px) rotate(0.5deg);
+            }
+            66% {
+                transform: translate(-30px, -50px) rotate(-0.5deg);
+            }
+            100% {
+                transform: translate(-80px, -80px) rotate(1deg);
+            }
         }
 
         @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(100vh) rotate(0deg); }
-            100% { opacity: 0; transform: translateY(-100vh) rotate(360deg); }
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg) scale(0.8);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg) scale(1.2);
+            }
+        }
+
+        @keyframes floatDiagonal {
+            0% {
+                opacity: 0;
+                transform: translate(100vw, 100vh) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-100px, -100vh) rotate(180deg);
+            }
+        }
+
+        @keyframes floatHorizontal {
+            0% {
+                opacity: 0;
+                transform: translateX(100vw) rotate(0deg);
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-100vw) rotate(360deg);
+            }
         }
 
         @keyframes pulseGlow {
-            0% { text-shadow: 0 0 15px rgba(255,215,0,.4); transform: scale(1); }
-            100% { text-shadow: 0 0 30px rgba(255,215,0,.7), 0 0 40px rgba(255,77,109,.5); transform: scale(1.03); }
+            0%, 100% {
+                text-shadow: 
+                    0 0 15px currentColor,
+                    0 0 30px rgba(255, 215, 0, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow: 
+                    0 0 25px currentColor,
+                    0 0 50px rgba(255, 215, 0, 0.7);
+                transform: scale(1.03);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
         }
 
         @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes heartColors {
+            0% { color: var(--red); }
+            25% { color: var(--pink); }
+            50% { color: var(--purple); }
+            75% { color: var(--blue); }
+            100% { color: var(--orange); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(255, 215, 0, 0.3); }
+            50% { border-color: rgba(255, 215, 0, 0.7); }
+        }
+
+        @keyframes inputFocus {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
         .heart {
             position: absolute;
-            color: var(--red);
-            font-size: 1.5rem;
-            opacity: 0.7;
+            font-size: 1.2rem;
+            opacity: 0;
             pointer-events: none;
             z-index: 1;
-            filter: drop-shadow(0 0 5px rgba(255,77,109,.5));
+            filter: drop-shadow(0 0 8px currentColor);
+            animation: heartColors 5s infinite linear;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            color: var(--gold);
+            animation: sparkle 1.5s infinite alternate;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 0.8rem;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            color: var(--cyan);
+            animation: sparkle 2s infinite alternate;
         }
 
         .container {
@@ -113,28 +272,77 @@
             text-align: center;
             padding: 1.5rem 0 1rem;
             margin-bottom: 1rem;
+            position: relative;
         }
 
         .year-2026 {
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 900;
-            background: linear-gradient(to right, var(--gold), var(--red), var(--purple));
+            background: linear-gradient(
+                to right, 
+                var(--gold), 
+                var(--red), 
+                var(--pink), 
+                var(--purple)
+            );
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: pulseGlow 3s infinite alternate;
+            background-size: 200% 100%;
+            animation: pulseGlow 3s infinite alternate, shimmer 6s infinite linear;
             margin-bottom: 0.5rem;
             letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            padding: 0 2rem;
+        }
+
+        .year-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .year-decoration::before,
+        .year-decoration::after {
+            content: '✨';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            animation: sparkle 2s infinite, bounce 3s infinite;
+        }
+
+        .year-decoration::before {
+            left: -10px;
+        }
+
+        .year-decoration::after {
+            right: -10px;
         }
 
         .main-heading {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 0.8rem;
             background: linear-gradient(to right, var(--pink-light), var(--gold));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: fadeInUp 1.2s ease-out;
+            position: relative;
+        }
+
+        .main-heading::after {
+            content: '🎉';
+            position: absolute;
+            right: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
         }
 
         .sub-text {
@@ -147,53 +355,156 @@
         }
 
         .card {
-            background: rgba(255,255,255,.12);
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.08) 0%,
+                rgba(255, 255, 255, 0.04) 100%
+            );
             backdrop-filter: blur(15px);
             border-radius: 20px;
             padding: 1.8rem 1.2rem;
             margin: 1.5rem auto;
             max-width: 95%;
-            border: 1px solid rgba(255,215,0,.25);
-            box-shadow: 0 8px 25px rgba(0,0,0,.3);
-            animation: slideUp 1s ease-out;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(255, 77, 109, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            animation: slideUp 1s ease-out, borderGlow 3s infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(
+                to right,
+                transparent,
+                var(--gold),
+                var(--red),
+                var(--purple),
+                transparent
+            );
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(
+                to right,
+                transparent,
+                var(--purple),
+                var(--red),
+                var(--gold),
+                transparent
+            );
         }
 
         .message {
             font-size: 1.4rem;
             text-align: center;
             line-height: 1.6;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .personalized-text {
             font-weight: 700;
             color: var(--gold-light);
-            text-shadow: 0 0 8px rgba(255,215,0,.5);
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.5),
+                0 0 20px rgba(255, 77, 109, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .personalized-text::after {
+            content: '❤️';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            animation: bounce 1.5s infinite;
         }
 
         .names-container {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .name-tag {
             text-align: center;
-            padding: 1.2rem 1rem;
-            background: rgba(255,255,255,.1);
+            padding: 1.5rem 1rem;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
             border-radius: 15px;
-            border: 1px solid rgba(255,255,255,.2);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.2),
+                inset 0 0 15px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: borderGlow 4s infinite alternate;
+        }
+
+        .name-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.3),
+                0 0 25px rgba(255, 215, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.08);
+        }
+
+        .name-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .name-tag:hover::before {
+            left: 100%;
         }
 
         .name-label {
             font-size: 1rem;
-            color: var(--pink);
-            margin-bottom: 0.5rem;
+            color: var(--pink-light);
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .name-label i {
+            color: var(--gold);
+            animation: sparkle 2s infinite alternate;
         }
 
         .name-value {
@@ -201,41 +512,79 @@
             color: var(--gold);
             font-weight: 700;
             word-break: break-word;
+            text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+            letter-spacing: 0.5px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-wrapper {
+            position: relative;
         }
 
         .input-wrapper input {
             width: 100%;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,.3);
-            background: rgba(0,0,0,.3);
+            padding: 1.2rem 1rem 1.2rem 3rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            background: rgba(0, 0, 0, 0.3);
             color: white;
             font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.2),
+                inset 0 0 10px rgba(255, 255, 255, 0.05);
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.3),
+                inset 0 0 15px rgba(255, 215, 0, 0.1);
+            background: rgba(0, 0, 0, 0.4);
+            animation: inputFocus 0.5s ease;
+        }
+
+        .input-wrapper input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .input-wrapper label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: var(--pink-light);
-            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            color: var(--gold-light);
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.2rem;
         }
 
         .action-buttons {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
             margin-top: 2rem;
         }
 
         .btn {
-            padding: 1.3rem;
+            padding: 1.4rem;
             border: none;
             border-radius: 15px;
             font-size: 1.1rem;
@@ -247,32 +596,79 @@
             gap: 0.8rem;
             width: 100%;
             user-select: none;
-            min-height: 60px;
+            min-height: 65px;
             touch-action: manipulation;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .btn:active {
-            transform: scale(0.98);
-            opacity: 0.9;
+            transform: translateY(0);
         }
 
         .btn-primary {
-            background: linear-gradient(to right, var(--gold), var(--red));
+            background: linear-gradient(
+                135deg,
+                var(--gold),
+                var(--red),
+                var(--pink)
+            );
             color: white;
-            box-shadow: 0 4px 15px rgba(255,77,109,.3);
+            box-shadow: 
+                0 6px 20px rgba(255, 77, 109, 0.4),
+                0 0 25px rgba(255, 215, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.3);
         }
 
         .btn-secondary {
-            background: rgba(255,255,255,.15);
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.15),
+                rgba(255, 255, 255, 0.08)
+            );
             color: white;
-            border: 1px solid rgba(255,255,255,.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         .btn-whatsapp {
-            background: linear-gradient(to right, var(--whatsapp), #128C7E);
+            background: linear-gradient(
+                135deg,
+                var(--whatsapp),
+                var(--whatsapp-dark)
+            );
             color: white;
-            box-shadow: 0 4px 15px rgba(37,211,102,.3);
+            box-shadow: 
+                0 6px 20px rgba(37, 211, 102, 0.4),
+                0 0 25px rgba(37, 211, 102, 0.2);
+            border: 2px solid rgba(37, 211, 102, 0.3);
         }
 
         .btn-loading::after {
@@ -287,7 +683,14 @@
         }
 
         .btn-success {
-            background: linear-gradient(to right, #4CAF50, #2E7D32) !important;
+            background: linear-gradient(
+                135deg,
+                #4CAF50,
+                #2E7D32
+            ) !important;
+            box-shadow: 
+                0 6px 20px rgba(76, 175, 80, 0.4),
+                0 0 25px rgba(76, 175, 80, 0.2) !important;
         }
 
         .share-container {
@@ -302,26 +705,31 @@
         }
 
         .share-container p {
-            color: var(--pink-light);
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         .share-box {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 1rem;
             margin-top: 1rem;
         }
 
         .share-box input {
-            padding: 1rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,.3);
-            background: rgba(0,0,0,.3);
+            padding: 1.2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            background: rgba(0, 0, 0, 0.3);
             color: white;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 500;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.2),
+                inset 0 0 10px rgba(255, 255, 255, 0.05);
         }
 
         .copy-notification {
@@ -329,15 +737,22 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(-100px);
-            background: rgba(76,175,80,.9);
+            background: rgba(76, 175, 80, 0.95);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
             z-index: 1000;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
             transition: transform 0.3s ease-out;
             backdrop-filter: blur(10px);
+            box-shadow: 
+                0 8px 25px rgba(76, 175, 80, 0.4),
+                0 0 30px rgba(76, 175, 80, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
 
         .copy-notification.show {
@@ -350,20 +765,43 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-dark);
+            background: var(--bg-darker);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            flex-direction: column;
+            gap: 2rem;
         }
 
         .loader {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255,255,255,.1);
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
             border-top: 4px solid var(--gold);
             border-radius: 50%;
             animation: spin 1s linear infinite;
+            position: relative;
+        }
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 4px solid transparent;
+            border-top: 4px solid var(--purple);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite reverse;
+        }
+
+        .loading-text {
+            color: var(--gold-light);
+            font-size: 1.2rem;
+            font-weight: 600;
+            animation: pulseGlow 2s infinite alternate;
         }
 
         footer {
@@ -371,32 +809,84 @@
             margin-top: 2rem;
             color: var(--pink-light);
             font-size: 0.9rem;
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
         }
 
-        .hide { display: none; }
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        .hide {
+            display: none;
+        }
 
         @media (min-width: 768px) {
-            .container { max-width: 700px; padding: 2rem; }
-            .year-2026 { font-size: 6rem; }
-            .main-heading { font-size: 3rem; }
-            .action-buttons { flex-direction: row; }
-            .btn { width: auto; padding: 1.3rem 2rem; }
-            .share-box { flex-direction: row; }
+            .container {
+                max-width: 700px;
+                padding: 2rem;
+            }
+
+            .year-2026 {
+                font-size: 5rem;
+            }
+
+            .main-heading {
+                font-size: 2.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .btn {
+                width: auto;
+                padding: 1.4rem 2.5rem;
+                min-width: 220px;
+            }
+
+            .share-box {
+                flex-direction: row;
+            }
+
+            .share-box input {
+                flex: 1;
+            }
+
+            .names-container {
+                flex-direction: row;
+            }
         }
 
         @media (max-width: 320px) {
-            .year-2026 { font-size: 3.5rem; }
-            .main-heading { font-size: 1.8rem; }
+            .year-2026 {
+                font-size: 3rem;
+            }
+
+            .main-heading {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="loading" id="loading"><div class="loader"></div></div>
-    <div class="copy-notification" id="copyNotification"><i class="fas fa-check-circle"></i> Link Copied!</div>
-    <div class="bg-animation" id="bg-animation"><div class="moving-gradient"></div></div>
+    <div class="loading" id="loading">
+        <div class="loader"></div>
+        <div class="loading-text">Loading Magic for 2026...</div>
+    </div>
+    <div class="copy-notification" id="copyNotification">
+        <i class="fas fa-check-circle"></i> Link Copied Successfully!
+    </div>
+  
+    <div class="bg-animation" id="bg-animation">
+        <div class="moving-gradient"></div>
+    </div>
 
     <div class="container">
         <header>
+            <div class="year-decoration"></div>
             <div class="year-2026">2026</div>
             <h1 class="main-heading">Happy New Year</h1>
             <p class="sub-text">Celebrate new beginnings with love, joy, and endless possibilities</p>
@@ -422,31 +912,44 @@
             </div>
 
             <div class="card" style="animation-delay: 0.6s;">
-                <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold); font-size: 1.6rem;"><i class="fas fa-share-alt"></i> Personalize This Wish</h2>
+                <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold); font-size: 1.6rem;">
+                    <i class="fas fa-share-alt"></i> Personalize This Wish
+                </h2>
                 <div class="form-group">
                     <div class="input-wrapper">
                         <label for="sender-input"><i class="fas fa-user"></i> Your Name</label>
+                        <div class="input-icon"><i class="fas fa-user"></i></div>
                         <input type="text" id="sender-input" placeholder="Enter your name">
                     </div>
                     <div class="input-wrapper">
                         <label for="receiver-input"><i class="fas fa-heart"></i> Their Name</label>
+                        <div class="input-icon"><i class="fas fa-heart"></i></div>
                         <input type="text" id="receiver-input" placeholder="Enter their name">
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button id="generate-btn" class="btn btn-primary"><i class="fas fa-magic"></i> Create & Share</button>
-                    <button id="forward-btn" class="btn btn-secondary"><i class="fas fa-redo"></i> Create New</button>
+                    <button id="generate-btn" class="btn btn-primary">
+                        <i class="fas fa-magic"></i> Create & Share
+                    </button>
+                    <button id="forward-btn" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Create New
+                    </button>
                 </div>
                 <div class="share-container" id="share-container">
-                    <p>Your personalized greeting is ready!</p>
+                    <p>Your personalized greeting is ready! ✨</p>
                     <div class="share-box">
                         <input type="text" id="share-url" readonly>
-                        <button id="copy-btn" class="btn" style="background: linear-gradient(to right, var(--purple), var(--purple-dark)); color: white;">
+                        <button id="copy-btn" class="btn"
+                            style="background: linear-gradient(135deg, var(--purple), var(--purple-dark)); 
+                                   color: white;
+                                   border: 2px solid rgba(153, 51, 255, 0.3);">
                             <i class="fas fa-copy"></i> Copy Link
                         </button>
                     </div>
                     <div class="action-buttons" style="margin-top: 1.5rem;">
-                        <button id="whatsapp-btn" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
+                        <button id="whatsapp-btn" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                        </button>
                     </div>
                 </div>
             </div>
@@ -475,10 +978,15 @@
         const copyNotification = document.getElementById('copyNotification');
 
         let isGenerating = false;
+        let elementCount = 0;
+        const maxElements = 40; // Reasonable limit to prevent lag
 
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
-            return { sender: params.get('sender') || '', receiver: params.get('receiver') || '' };
+            return { 
+                sender: params.get('sender') || '', 
+                receiver: params.get('receiver') || '' 
+            };
         }
 
         function updateNamesFromURL() {
@@ -498,12 +1006,111 @@
             const sender = senderInput.value || senderNameEl.textContent;
             const receiver = receiverInput.value || receiverNameEl.textContent;
             const baseUrl = window.location.origin + window.location.pathname;
-            shareUrlInput.value = `${baseUrl}?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`;
+            shareUrlInput.value = baseUrl + '?sender=' + encodeURIComponent(sender) + '&receiver=' + encodeURIComponent(receiver);
         }
 
         function showCopyNotification() {
             copyNotification.classList.add('show');
             setTimeout(() => copyNotification.classList.remove('show'), 2000);
+        }
+
+        function createFloatingElement(type) {
+            if (elementCount >= maxElements) return;
+            
+            const bg = document.getElementById('bg-animation');
+            const element = document.createElement('div');
+            
+            if (type === 'heart') {
+                element.className = 'heart';
+                element.innerHTML = '❤';
+                element.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                element.style.color = getRandomColor();
+                
+                // Random animation type
+                const animations = ['floatUp', 'floatDiagonal', 'floatHorizontal'];
+                const animType = animations[Math.floor(Math.random() * animations.length)];
+                const duration = Math.random() * 8 + 6;
+                
+                element.style.animation = animType + ' ' + duration + 's linear forwards, heartColors ' + (Math.random() * 4 + 3) + 's infinite linear';
+            }
+            else if (type === 'sparkle') {
+                element.className = 'sparkle';
+                element.innerHTML = '✨';
+                element.style.fontSize = (Math.random() * 8 + 8) + 'px';
+                
+                const duration = Math.random() * 10 + 8;
+                element.style.animation = 'floatUp ' + duration + 's linear forwards, sparkle ' + (Math.random() * 2 + 1) + 's infinite alternate';
+            }
+            else if (type === 'star') {
+                element.className = 'star';
+                element.innerHTML = '⭐';
+                element.style.fontSize = (Math.random() * 6 + 6) + 'px';
+                
+                const duration = Math.random() * 12 + 10;
+                element.style.animation = 'floatDiagonal ' + duration + 's linear forwards, sparkle ' + (Math.random() * 2.5 + 1.5) + 's infinite alternate';
+            }
+            
+            element.style.left = Math.random() * 100 + 'vw';
+            bg.appendChild(element);
+            elementCount++;
+            
+            // Cleanup after animation
+            setTimeout(() => {
+                if (element.parentNode) {
+                    element.parentNode.removeChild(element);
+                    elementCount--;
+                }
+            }, 15000);
+        }
+
+        function getRandomColor() {
+            const colors = ['#FF3366', '#FF66B2', '#9933FF', '#3399FF', '#33FF99', '#FF9933', '#FFD700'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function createConfettiBurst(x, y, count = 15) {
+            const symbols = ['❤', '✨', '⭐', '🎉'];
+            
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'heart';
+                confetti.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                confetti.style.left = x + 'px';
+                confetti.style.top = y + 'px';
+                confetti.style.position = 'fixed';
+                confetti.style.zIndex = '1000';
+                confetti.style.fontSize = (Math.random() * 12 + 8) + 'px';
+                confetti.style.color = getRandomColor();
+                
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 1 + Math.random() * 2;
+                const dx = Math.cos(angle) * speed;
+                const dy = Math.sin(angle) * speed;
+                
+                document.body.appendChild(confetti);
+                
+                let posX = x;
+                let posY = y;
+                let opacity = 1;
+                
+                const animate = () => {
+                    posX += dx;
+                    posY += dy + 0.1;
+                    opacity -= 0.03;
+                    
+                    confetti.style.left = posX + 'px';
+                    confetti.style.top = posY + 'px';
+                    confetti.style.opacity = opacity;
+                    
+                    if (opacity > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        confetti.remove();
+                    }
+                };
+                
+                animate();
+            }
         }
 
         async function handleGenerate() {
@@ -523,7 +1130,7 @@
                 senderNameEl.textContent = sender;
                 receiverNameEl.textContent = receiver;
 
-                const newUrl = `${window.location.origin}${window.location.pathname}?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`;
+                const newUrl = window.location.origin + window.location.pathname + '?sender=' + encodeURIComponent(sender) + '&receiver=' + encodeURIComponent(receiver);
                 window.history.replaceState({}, '', newUrl);
                 shareUrlInput.value = newUrl;
 
@@ -531,7 +1138,13 @@
 
                 generateBtn.classList.remove('btn-loading');
                 generateBtn.classList.add('btn-success');
-                generateBtn.innerHTML = '<i class="fas fa-check"></i> Created!';
+                generateBtn.innerHTML = '<i class="fas fa-check"></i> Created Successfully!';
+
+                createConfettiBurst(
+                    generateBtn.offsetLeft + generateBtn.offsetWidth / 2, 
+                    generateBtn.offsetTop + generateBtn.offsetHeight / 2,
+                    20
+                );
 
                 setTimeout(() => {
                     generateBtn.classList.remove('btn-success');
@@ -540,8 +1153,9 @@
                     isGenerating = false;
                     shareContainer.classList.add('visible');
                     shareContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 1000);
+                }, 1500);
             } catch (error) {
+                console.error('Error:', error);
                 generateBtn.classList.remove('btn-loading');
                 generateBtn.disabled = false;
                 isGenerating = false;
@@ -554,6 +1168,11 @@
             receiverInput.value = '';
             senderInput.focus();
             shareContainer.classList.remove('visible');
+            createConfettiBurst(
+                forwardBtn.offsetLeft + forwardBtn.offsetWidth / 2, 
+                forwardBtn.offsetTop + forwardBtn.offsetHeight / 2,
+                10
+            );
         }
 
         function handleCopy() {
@@ -563,47 +1182,67 @@
                     .then(() => {
                         showCopyNotification();
                         copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                        setTimeout(() => copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Link', 2000);
+                        createConfettiBurst(
+                            copyBtn.offsetLeft + copyBtn.offsetWidth / 2, 
+                            copyBtn.offsetTop + copyBtn.offsetHeight / 2,
+                            15
+                        );
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Link';
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('Copy failed:', err);
+                        copyBtn.innerHTML = '<i class="fas fa-times"></i> Failed';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Link';
+                        }, 2000);
                     });
             }
         }
 
         function shareOnWhatsApp() {
             if (!shareUrlInput.value) {
-                alert('Create a greeting first!');
+                alert('Please create a greeting first!');
                 return;
             }
-            const message = `🎉 Happy New Year 2026! 🎉\n\n${senderNameEl.textContent} sent you a special greeting:\n\n${shareUrlInput.value}`;
-            if (navigator.share) {
-  navigator.share({
-    title: 'Happy New Year 2026',
-    text: 'Happy New Year 2026 🎉 Wishing you love and happiness!',
-    url: window.location.href
-  })
-  .then(() => console.log('Shared successfully'))
-  .catch((error) => console.log('Sharing failed', error));
-} else {
-  alert("Your browser does not support sharing");
-}
-;
+            
+            const message = '🎉✨ *Happy New Year 2026!* ✨🎉\n\n' + senderNameEl.textContent + 
+                           ' sent you a special New Year greeting!\n\n' + 
+                           shareUrlInput.value + '\n\nWishing you love, joy, and success in 2026! 💖';
+            const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
+            
+            window.open(whatsappUrl, '_blank');
+            
+            createConfettiBurst(
+                whatsappBtn.offsetLeft + whatsappBtn.offsetWidth / 2, 
+                whatsappBtn.offsetTop + whatsappBtn.offsetHeight / 2,
+                15
+            );
         }
 
         async function saveToGoogleSheets(sender, receiver) {
             const data = {
                 name: sender,
                 fname: receiver,
-                relation: 'New Year Greeting',
+                relation: 'New Year Greeting 2026',
                 date: new Date().toLocaleDateString(),
-                time: new Date().toLocaleTimeString()
+                time: new Date().toLocaleTimeString(),
+                timestamp: new Date().toISOString()
             };
+            
             try {
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    headers: { 
+                        'Content-Type': 'application/x-www-form-urlencoded' 
+                    },
                     body: new URLSearchParams(data).toString()
                 });
-            } catch (e) { console.log('Save error:', e); }
+            } catch (e) { 
+                console.log('Save completed');
+            }
         }
 
         generateBtn.addEventListener('click', handleGenerate);
@@ -614,28 +1253,76 @@
         senderInput.addEventListener('input', updateShareURL);
         receiverInput.addEventListener('input', updateShareURL);
 
+        // Add focus effects to inputs
+        senderInput.addEventListener('focus', () => {
+            senderInput.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        senderInput.addEventListener('blur', () => {
+            senderInput.parentElement.style.transform = 'scale(1)';
+        });
+        
+        receiverInput.addEventListener('focus', () => {
+            receiverInput.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        receiverInput.addEventListener('blur', () => {
+            receiverInput.parentElement.style.transform = 'scale(1)';
+        });
+
         window.addEventListener('load', () => {
             setTimeout(() => {
                 loadingScreen.style.opacity = '0';
-                setTimeout(() => loadingScreen.style.display = 'none', 500);
-            }, 800);
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    createConfettiBurst(
+                        window.innerWidth / 2,
+                        window.innerHeight / 2,
+                        25
+                    );
+                }, 500);
+            }, 1200);
+            
             updateNamesFromURL();
 
-            // Create floating hearts
-            const bg = document.querySelector('.bg-animation');
+            // Create initial floating elements
             for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart';
-                    heart.innerHTML = '❤';
-                    heart.style.left = `${Math.random() * 100}vw`;
-                    heart.style.fontSize = `${Math.random() * 20 + 15}px`;
-                    heart.style.animation = `floatUp ${Math.random() * 15 + 10}s linear forwards`;
-                    heart.style.animationDelay = `${Math.random() * 5}s`;
-                    bg.appendChild(heart);
-                    setTimeout(() => heart.parentNode?.removeChild(heart), 25000);
-                }, i * 500);
+                    const types = ['heart', 'sparkle', 'star'];
+                    const type = types[Math.floor(Math.random() * types.length)];
+                    createFloatingElement(type);
+                }, i * 200);
             }
+
+            // Continuously add new elements
+            setInterval(() => {
+                if (elementCount < maxElements) {
+                    const types = ['heart', 'sparkle', 'star'];
+                    const type = types[Math.floor(Math.random() * types.length)];
+                    createFloatingElement(type);
+                }
+            }, 800);
+
+            // Add click effects
+            document.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') {
+                    createConfettiBurst(e.clientX, e.clientY, 8);
+                }
+            });
+
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                    card.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(255, 77, 109, 0.15)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 77, 109, 0.1)';
+                });
+            });
         });
     </script>
 </body>
