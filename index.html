@@ -6,7 +6,6 @@
     <title>Happy New Year 2026 ❤️</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Mobile-First Design */
         * {
             margin: 0;
             padding: 0;
@@ -24,30 +23,23 @@
             --purple: #C77DFF;
             --purple-dark: #5A189A;
             --bg-dark: #0A0A2A;
-            --bg-gradient: linear-gradient(135deg, #0A0A2A 0%, #1A0A2A 30%, #2A0A2A 70%, #3A0A1A 100%);
-            --whatsapp-green: #25D366;
-            --whatsapp-dark: #128C7E;
-            --safe-area-inset-bottom: env(safe-area-inset-bottom);
+            --whatsapp: #25D366;
         }
 
-        html {
-            font-size: 16px;
+        html, body {
             height: 100%;
+            width: 100%;
         }
 
         body {
             min-height: 100vh;
-            min-height: -webkit-fill-available;
-            background: var(--bg-gradient);
+            background: linear-gradient(135deg, #0A0A2A 0%, #1A0A2A 30%, #2A0A2A 70%, #3A0A1A 100%);
             color: white;
             overflow-x: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            padding-bottom: calc(20px + var(--safe-area-inset-bottom));
-            position: relative;
-            touch-action: manipulation;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding-bottom: 20px;
         }
 
-        /* Background Animation */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -64,31 +56,38 @@
             left: 0;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, 
-                rgba(10, 10, 42, 0.95) 0%, 
-                rgba(26, 10, 42, 0.95) 25%, 
-                rgba(42, 10, 42, 0.95) 50%, 
-                rgba(58, 10, 26, 0.95) 75%, 
-                rgba(74, 10, 10, 0.95) 100%);
+            background: linear-gradient(45deg, rgba(10,10,42,.95), rgba(26,10,42,.95), rgba(42,10,42,.95), rgba(58,10,26,.95));
             animation: moveGradient 30s ease-in-out infinite alternate;
         }
 
         @keyframes moveGradient {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            100% {
-                transform: translate(-30px, -30px) rotate(1deg);
-            }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-30px, -30px) rotate(1deg); }
         }
 
-        /* Sparkles and Hearts Styles */
-        .sparkle {
-            position: absolute;
-            background: radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(100vh) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 15px rgba(255,215,0,.4); transform: scale(1); }
+            100% { text-shadow: 0 0 30px rgba(255,215,0,.7), 0 0 40px rgba(255,77,109,.5); transform: scale(1.03); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .heart {
@@ -98,10 +97,9 @@
             opacity: 0.7;
             pointer-events: none;
             z-index: 1;
-            filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.5));
+            filter: drop-shadow(0 0 5px rgba(255,77,109,.5));
         }
 
-        /* Container */
         .container {
             width: 100%;
             max-width: 100%;
@@ -111,12 +109,10 @@
             z-index: 10;
         }
 
-        /* Header */
         header {
             text-align: center;
             padding: 1.5rem 0 1rem;
             margin-bottom: 1rem;
-            position: relative;
         }
 
         .year-2026 {
@@ -126,21 +122,9 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
             animation: pulseGlow 3s infinite alternate;
             margin-bottom: 0.5rem;
             letter-spacing: 2px;
-        }
-
-        @keyframes pulseGlow {
-            0% {
-                text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-                transform: scale(1);
-            }
-            100% {
-                text-shadow: 0 0 30px rgba(255, 215, 0, 0.7), 0 0 40px rgba(255, 77, 109, 0.5);
-                transform: scale(1.03);
-            }
         }
 
         .main-heading {
@@ -151,7 +135,6 @@
             background-clip: text;
             color: transparent;
             animation: fadeInUp 1.2s ease-out;
-            line-height: 1.2;
         }
 
         .sub-text {
@@ -159,37 +142,20 @@
             color: var(--pink-light);
             max-width: 95%;
             margin: 0 auto 1.5rem;
-            line-height: 1.5;
             animation: fadeInUp 1.2s ease-out 0.2s both;
-            padding: 0 0.5rem;
             font-style: italic;
         }
 
-        /* Greeting Card */
-        .greeting-card {
-            background: rgba(255, 255, 255, 0.12);
+        .card {
+            background: rgba(255,255,255,.12);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border-radius: 20px;
             padding: 1.8rem 1.2rem;
             margin: 1.5rem auto;
             max-width: 95%;
-            border: 1px solid rgba(255, 215, 0, 0.25);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            animation: slideUp 1s ease-out 0.4s both;
-        }
-
-        @keyframes slideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            border: 1px solid rgba(255,215,0,.25);
+            box-shadow: 0 8px 25px rgba(0,0,0,.3);
+            animation: slideUp 1s ease-out;
         }
 
         .message {
@@ -202,7 +168,7 @@
         .personalized-text {
             font-weight: 700;
             color: var(--gold-light);
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+            text-shadow: 0 0 8px rgba(255,215,0,.5);
         }
 
         .names-container {
@@ -215,9 +181,9 @@
         .name-tag {
             text-align: center;
             padding: 1.2rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,.1);
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255,255,255,.2);
         }
 
         .name-label {
@@ -237,27 +203,6 @@
             word-break: break-word;
         }
 
-        /* Forward Form */
-        .forward-form {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 1.8rem 1.2rem;
-            margin: 1.5rem auto;
-            max-width: 95%;
-            border: 1px solid rgba(255, 215, 0, 0.25);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1s ease-out 0.6s both;
-        }
-
-        .forward-form h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--gold);
-            font-size: 1.6rem;
-        }
-
         .form-group {
             display: flex;
             flex-direction: column;
@@ -269,13 +214,19 @@
             width: 100%;
             padding: 1rem;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,.3);
+            background: rgba(0,0,0,.3);
             color: white;
             font-size: 1.1rem;
         }
 
-        /* Mobile-friendly buttons */
+        .input-wrapper label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--pink-light);
+            font-size: 0.9rem;
+        }
+
         .action-buttons {
             display: flex;
             flex-direction: column;
@@ -295,9 +246,7 @@
             justify-content: center;
             gap: 0.8rem;
             width: 100%;
-            -webkit-user-select: none;
             user-select: none;
-            position: relative;
             min-height: 60px;
             touch-action: manipulation;
             transition: transform 0.2s, opacity 0.2s;
@@ -311,25 +260,19 @@
         .btn-primary {
             background: linear-gradient(to right, var(--gold), var(--red));
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+            box-shadow: 0 4px 15px rgba(255,77,109,.3);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255,255,255,.15);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255,255,255,.3);
         }
 
         .btn-whatsapp {
-            background: linear-gradient(to right, var(--whatsapp-green), var(--whatsapp-dark));
+            background: linear-gradient(to right, var(--whatsapp), #128C7E);
             color: white;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        /* Button loading animation */
-        .btn-loading {
-            position: relative;
-            color: transparent !important;
+            box-shadow: 0 4px 15px rgba(37,211,102,.3);
         }
 
         .btn-loading::after {
@@ -337,35 +280,25 @@
             position: absolute;
             width: 24px;
             height: 24px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             border: 3px solid transparent;
             border-top-color: white;
             border-radius: 50%;
-            animation: button-spinner 0.8s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
 
-        @keyframes button-spinner {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Button success animation */
         .btn-success {
             background: linear-gradient(to right, #4CAF50, #2E7D32) !important;
         }
 
-        /* Share URL Container */
         .share-container {
             margin-top: 2rem;
             text-align: center;
             display: none;
+            animation: fadeInUp 0.5s ease-out;
         }
 
         .share-container.visible {
             display: block;
-            animation: fadeIn 0.5s ease-out;
         }
 
         .share-container p {
@@ -384,66 +317,19 @@
         .share-box input {
             padding: 1rem;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,.3);
+            background: rgba(0,0,0,.3);
             color: white;
             text-align: center;
             font-size: 0.9rem;
         }
 
-        .share-box .copy-btn {
-            padding: 1.2rem;
-            background: linear-gradient(to right, var(--purple), var(--purple-dark));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            min-height: 56px;
-            touch-action: manipulation;
-        }
-
-        /* NEW: Share Buttons Container */
-        .share-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .share-buttons .btn {
-            min-height: 56px;
-        }
-
-        /* Success Message */
-        .success-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 2px solid var(--gold);
-            z-index: 1000;
-            text-align: center;
-            max-width: 80%;
-            display: none;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Copy Notification */
         .copy-notification {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(-100px);
-            background: rgba(76, 175, 80, 0.9);
+            background: rgba(76,175,80,.9);
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 10px;
@@ -452,109 +338,62 @@
             font-weight: 600;
             transition: transform 0.3s ease-out;
             backdrop-filter: blur(10px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .copy-notification.show {
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Loading Animation */
         .loading {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-gradient);
+            background: var(--bg-dark);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            transition: opacity 0.5s;
         }
 
         .loader {
             width: 60px;
             height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
+            border: 4px solid rgba(255,255,255,.1);
             border-top: 4px solid var(--gold);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--pink-light);
+            font-size: 0.9rem;
         }
 
-        /* Responsive */
+        .hide { display: none; }
+
         @media (min-width: 768px) {
-            .container {
-                max-width: 700px;
-                padding: 2rem;
-            }
-            
-            .year-2026 {
-                font-size: 6rem;
-            }
-            
-            .main-heading {
-                font-size: 3rem;
-            }
-            
-            .action-buttons {
-                flex-direction: row;
-            }
-            
-            .btn {
-                width: auto;
-                padding: 1.3rem 2rem;
-            }
-            
-            .share-box {
-                flex-direction: row;
-            }
-            
-            .share-buttons {
-                flex-direction: row;
-            }
+            .container { max-width: 700px; padding: 2rem; }
+            .year-2026 { font-size: 6rem; }
+            .main-heading { font-size: 3rem; }
+            .action-buttons { flex-direction: row; }
+            .btn { width: auto; padding: 1.3rem 2rem; }
+            .share-box { flex-direction: row; }
         }
 
         @media (max-width: 320px) {
-            .year-2026 {
-                font-size: 3.5rem;
-            }
-            
-            .main-heading {
-                font-size: 1.8rem;
-            }
+            .year-2026 { font-size: 3.5rem; }
+            .main-heading { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading" id="loading">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Success Message -->
-    <div class="success-message" id="successMessage">
-        <p id="successText" style="margin-bottom: 1rem; font-size: 1.1rem;"></p>
-        <button id="okBtn" class="btn" style="background: var(--gold); color: black;">
-            OK
-        </button>
-    </div>
-
-    <!-- Copy Notification -->
-    <div class="copy-notification" id="copyNotification">
-        <i class="fas fa-check-circle"></i> Link Copied!
-    </div>
-
-    <!-- Background Animation -->
-    <div class="bg-animation" id="bg-animation">
-        <div class="moving-gradient"></div>
-    </div>
+    <div class="loading" id="loading"><div class="loader"></div></div>
+    <div class="copy-notification" id="copyNotification"><i class="fas fa-check-circle"></i> Link Copied!</div>
+    <div class="bg-animation" id="bg-animation"><div class="moving-gradient"></div></div>
 
     <div class="container">
         <header>
@@ -564,34 +403,26 @@
         </header>
 
         <main>
-            <!-- Greeting Card -->
-            <div class="greeting-card">
+            <div class="card" style="animation-delay: 0.4s;">
                 <div class="message">
                     <p>As we welcome <span class="personalized-text">2026</span>,</p>
                     <p>my heart is filled with love and hope</p>
                     <p>for our beautiful journey ahead.</p>
                 </div>
-                
                 <div class="names-container">
                     <div class="name-tag">
-                        <div class="name-label">
-                            <i class="fas fa-user"></i> From
-                        </div>
+                        <div class="name-label"><i class="fas fa-user"></i> From</div>
                         <div id="sender-name" class="name-value">Your Secret Admirer</div>
                     </div>
                     <div class="name-tag">
-                        <div class="name-label">
-                            <i class="fas fa-heart"></i> To
-                        </div>
+                        <div class="name-label"><i class="fas fa-heart"></i> To</div>
                         <div id="receiver-name" class="name-value">My Dearest Love</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Forward Form -->
-            <div class="forward-form">
-                <h2><i class="fas fa-share-alt"></i> Personalize This Wish</h2>
-                
+            <div class="card" style="animation-delay: 0.6s;">
+                <h2 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold); font-size: 1.6rem;"><i class="fas fa-share-alt"></i> Personalize This Wish</h2>
                 <div class="form-group">
                     <div class="input-wrapper">
                         <label for="sender-input"><i class="fas fa-user"></i> Your Name</label>
@@ -602,34 +433,20 @@
                         <input type="text" id="receiver-input" placeholder="Enter their name">
                     </div>
                 </div>
-                
                 <div class="action-buttons">
-                    <button id="generate-btn" class="btn btn-primary">
-                        <i class="fas fa-magic"></i> Create & Share Greeting
-                    </button>
-                    <button id="forward-btn" class="btn btn-secondary">
-                        <i class="fas fa-redo"></i> Create New
-                    </button>
+                    <button id="generate-btn" class="btn btn-primary"><i class="fas fa-magic"></i> Create & Share</button>
+                    <button id="forward-btn" class="btn btn-secondary"><i class="fas fa-redo"></i> Create New</button>
                 </div>
-                
-                <!-- Initially hidden share container -->
                 <div class="share-container" id="share-container">
-                    <p>Your personalized greeting is ready! Share with your loved one:</p>
+                    <p>Your personalized greeting is ready!</p>
                     <div class="share-box">
                         <input type="text" id="share-url" readonly>
-                        <button id="copy-btn" class="copy-btn">
+                        <button id="copy-btn" class="btn" style="background: linear-gradient(to right, var(--purple), var(--purple-dark)); color: white;">
                             <i class="fas fa-copy"></i> Copy Link
                         </button>
                     </div>
-                    
-                    <!-- NEW: WhatsApp Share Button -->
-                    <div class="share-buttons">
-                        <button id="whatsapp-share-btn" class="btn btn-whatsapp">
-                            <i class="fab fa-whatsapp"></i> Share on WhatsApp
-                        </button>
-                        <button id="other-share-btn" class="btn btn-secondary">
-                            <i class="fas fa-share"></i> Other Apps
-                        </button>
+                    <div class="action-buttons" style="margin-top: 1.5rem;">
+                        <button id="whatsapp-btn" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
                     </div>
                 </div>
             </div>
@@ -642,440 +459,170 @@
     </div>
 
     <script>
-        // DOM Elements
-        const senderNameElement = document.getElementById('sender-name');
-        const receiverNameElement = document.getElementById('receiver-name');
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbydCfc8LMVaTUCok1diBcOGPzw8gijdSzaoLPT7hnMM5jQbzKYyxt5kFoSLvI-E50Fz1A/exec';
+
+        const senderNameEl = document.getElementById('sender-name');
+        const receiverNameEl = document.getElementById('receiver-name');
         const senderInput = document.getElementById('sender-input');
         const receiverInput = document.getElementById('receiver-input');
         const generateBtn = document.getElementById('generate-btn');
         const forwardBtn = document.getElementById('forward-btn');
         const shareUrlInput = document.getElementById('share-url');
         const copyBtn = document.getElementById('copy-btn');
-        const whatsappBtn = document.getElementById('whatsapp-share-btn');
-        const otherShareBtn = document.getElementById('other-share-btn');
+        const whatsappBtn = document.getElementById('whatsapp-btn');
         const loadingScreen = document.getElementById('loading');
         const shareContainer = document.getElementById('share-container');
-        const successMessage = document.getElementById('successMessage');
-        const successText = document.getElementById('successText');
-        const okBtn = document.getElementById('okBtn');
         const copyNotification = document.getElementById('copyNotification');
 
-        // FIXED: Use HTTPS URL for Google Sheets - This fixes mobile access
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbydCfc8LMVaTUCok1diBcOGPzw8gijdSzaoLPT7hnMM5jQbzKYyxt5kFoSLvI-E50Fz1A/exec';
-
-        // Variables
         let isGenerating = false;
-        let currentGreetingData = {
-            sender: '',
-            receiver: '',
-            url: ''
-        };
 
-        // URL Parameter Handling
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
-            return {
-                sender: params.get('sender') || '',
-                receiver: params.get('receiver') || ''
-            };
+            return { sender: params.get('sender') || '', receiver: params.get('receiver') || '' };
         }
 
         function updateNamesFromURL() {
-            const params = getQueryParams();
-            
-            if (params.sender) {
-                senderNameElement.textContent = params.sender;
-                senderInput.value = params.sender;
-                currentGreetingData.sender = params.sender;
+            const { sender, receiver } = getQueryParams();
+            if (sender) {
+                senderNameEl.textContent = sender;
+                senderInput.value = sender;
             }
-            
-            if (params.receiver) {
-                receiverNameElement.textContent = params.receiver;
-                receiverInput.value = params.receiver;
-                currentGreetingData.receiver = params.receiver;
+            if (receiver) {
+                receiverNameEl.textContent = receiver;
+                receiverInput.value = receiver;
             }
-            
             updateShareURL();
         }
 
         function updateShareURL() {
-            const sender = senderInput.value || senderNameElement.textContent;
-            const receiver = receiverInput.value || receiverNameElement.textContent;
-            
+            const sender = senderInput.value || senderNameEl.textContent;
+            const receiver = receiverInput.value || receiverNameEl.textContent;
             const baseUrl = window.location.origin + window.location.pathname;
-            const newUrl = `${baseUrl}?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`;
-            
-            shareUrlInput.value = newUrl;
-            currentGreetingData.url = newUrl;
-            currentGreetingData.sender = sender;
-            currentGreetingData.receiver = receiver;
-        }
-
-        // Initialize with URL parameters
-        updateNamesFromURL();
-
-        // Simple Button Event Listeners
-        generateBtn.addEventListener('click', handleGenerate);
-        generateBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            handleGenerate(e);
-        }, { passive: false });
-        
-        forwardBtn.addEventListener('click', handleForward);
-        forwardBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            handleForward(e);
-        }, { passive: false });
-        
-        copyBtn.addEventListener('click', handleCopy);
-        copyBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            handleCopy(e);
-        }, { passive: false });
-        
-        // NEW: WhatsApp Share Button
-        whatsappBtn.addEventListener('click', shareOnWhatsApp);
-        whatsappBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            shareOnWhatsApp(e);
-        }, { passive: false });
-        
-        // NEW: Other Share Button
-        otherShareBtn.addEventListener('click', shareViaOtherApps);
-        otherShareBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            shareViaOtherApps(e);
-        }, { passive: false });
-        
-        okBtn.addEventListener('click', () => {
-            successMessage.style.display = 'none';
-        });
-
-        // Main function to generate greeting
-        async function handleGenerate(e) {
-            if (isGenerating) return;
-            
-            const sender = senderInput.value.trim();
-            const receiver = receiverInput.value.trim();
-            
-            if (!sender || !receiver) {
-                showAlert('Please enter both names to create the greeting.');
-                return;
-            }
-            
-            // Mobile feedback
-            if (e.type === 'touchstart') {
-                e.currentTarget.style.opacity = '0.8';
-                setTimeout(() => {
-                    e.currentTarget.style.opacity = '';
-                }, 200);
-            }
-            
-            // Disable button and show loading
-            isGenerating = true;
-            generateBtn.disabled = true;
-            generateBtn.classList.add('btn-loading');
-            
-            try {
-                // Update displayed names
-                senderNameElement.textContent = sender;
-                receiverNameElement.textContent = receiver;
-                
-                // Generate new URL
-                const newUrl = `${window.location.origin}${window.location.pathname}?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`;
-                window.history.replaceState({}, '', newUrl);
-                
-                // Update share URL
-                shareUrlInput.value = newUrl;
-                currentGreetingData = {
-                    sender: sender,
-                    receiver: receiver,
-                    url: newUrl
-                };
-                
-                // Save data to Google Sheets (silently in background)
-                await saveToGoogleSheets(sender, receiver);
-                
-                // Show success animation on button
-                generateBtn.classList.remove('btn-loading');
-                generateBtn.classList.add('btn-success');
-                generateBtn.innerHTML = '<i class="fas fa-check"></i> Created!';
-                
-                // Wait a bit then show share container
-                setTimeout(() => {
-                    generateBtn.classList.remove('btn-success');
-                    generateBtn.innerHTML = '<i class="fas fa-magic"></i> Create & Share Greeting';
-                    generateBtn.disabled = false;
-                    isGenerating = false;
-                    
-                    // Show share container
-                    shareContainer.classList.add('visible');
-                    
-                    // Scroll to share container
-                    setTimeout(() => {
-                        shareContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300);
-                    
-                }, 1000);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                generateBtn.classList.remove('btn-loading');
-                generateBtn.disabled = false;
-                isGenerating = false;
-                
-                // Still show the greeting
-                shareContainer.classList.add('visible');
-                
-                setTimeout(() => {
-                    shareContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            }
-        }
-
-        function handleForward(e) {
-            if (e.type === 'touchstart') {
-                e.currentTarget.style.opacity = '0.8';
-                setTimeout(() => {
-                    e.currentTarget.style.opacity = '';
-                }, 200);
-            }
-            
-            senderInput.value = '';
-            receiverInput.value = '';
-            senderInput.focus();
-            shareContainer.classList.remove('visible');
-            currentGreetingData = { sender: '', receiver: '', url: '' };
-        }
-
-        function handleCopy(e) {
-            if (e.type === 'touchstart') {
-                e.preventDefault();
-                e.currentTarget.style.opacity = '0.8';
-                setTimeout(() => {
-                    e.currentTarget.style.opacity = '';
-                }, 200);
-            }
-            
-            shareUrlInput.select();
-            shareUrlInput.setSelectionRange(0, 99999);
-            
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(shareUrlInput.value)
-                    .then(() => {
-                        showCopyNotification();
-                        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                        copyBtn.style.background = 'linear-gradient(to right, #4CAF50, #2E7D32)';
-                        
-                        setTimeout(() => {
-                            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Link';
-                            copyBtn.style.background = 'linear-gradient(to right, var(--purple), var(--purple-dark))';
-                        }, 2000);
-                    })
-                    .catch(() => fallbackCopy());
-            } else {
-                fallbackCopy();
-            }
-        }
-
-        // NEW: Share on WhatsApp function
-        function shareOnWhatsApp(e) {
-            if (e.type === 'touchstart') {
-                e.preventDefault();
-                e.currentTarget.style.opacity = '0.8';
-                setTimeout(() => {
-                    e.currentTarget.style.opacity = '';
-                }, 200);
-            }
-            
-            if (!currentGreetingData.url) {
-                showAlert('Please create a greeting first!');
-                return;
-            }
-            
-            // Create beautiful message for WhatsApp
-            const message = `🎉 *Happy New Year 2026!* 🎉
-
-*${currentGreetingData.sender}* has sent you a special New Year greeting:
-
-"*As we welcome 2026, my heart is filled with love and hope for our beautiful journey ahead.*"
-
-💖 This message is specially crafted for: *${currentGreetingData.receiver}*
-
-Click to view your personalized greeting:
-${currentGreetingData.url}
-
-✨ Wishing you a year filled with love, joy, and beautiful moments! ✨
-
-#HappyNewYear2026 #NewYearGreetings #LoveWishes`;
-            
-            // Encode message for WhatsApp URL
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-            
-            // Open WhatsApp with the message
-            window.open(whatsappUrl, '_blank');
-            
-            // Button feedback
-            whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Opening WhatsApp...';
-            setTimeout(() => {
-                whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Share on WhatsApp';
-            }, 1500);
-        }
-
-        // NEW: Share via other apps using Web Share API
-        function shareViaOtherApps(e) {
-            if (e.type === 'touchstart') {
-                e.preventDefault();
-                e.currentTarget.style.opacity = '0.8';
-                setTimeout(() => {
-                    e.currentTarget.style.opacity = '';
-                }, 200);
-            }
-            
-            if (!currentGreetingData.url) {
-                showAlert('Please create a greeting first!');
-                return;
-            }
-            
-            // Create share data
-            const shareData = {
-                title: `Happy New Year 2026 from ${currentGreetingData.sender}`,
-                text: `${currentGreetingData.sender} sent you a special New Year 2026 greeting! Click to view:`,
-                url: currentGreetingData.url
-            };
-            
-            // Use Web Share API if available (works on mobile)
-            if (navigator.share) {
-                navigator.share(shareData)
-                    .then(() => {
-                        console.log('Shared successfully');
-                        otherShareBtn.innerHTML = '<i class="fas fa-check"></i> Shared!';
-                        setTimeout(() => {
-                            otherShareBtn.innerHTML = '<i class="fas fa-share"></i> Other Apps';
-                        }, 2000);
-                    })
-                    .catch((error) => {
-                        console.log('Sharing failed:', error);
-                        // Fallback to copying URL
-                        handleCopy(e);
-                    });
-            } else {
-                // Fallback for desktop or unsupported browsers
-                handleCopy(e);
-            }
-        }
-
-        function fallbackCopy() {
-            try {
-                document.execCommand('copy');
-                showCopyNotification();
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                copyBtn.style.background = 'linear-gradient(to right, #4CAF50, #2E7D32)';
-                
-                setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Link';
-                    copyBtn.style.background = 'linear-gradient(to right, var(--purple), var(--purple-dark))';
-                }, 2000);
-            } catch (err) {
-                showAlert('Failed to copy. Please copy manually.');
-            }
+            shareUrlInput.value = `${baseUrl}?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`;
         }
 
         function showCopyNotification() {
             copyNotification.classList.add('show');
-            setTimeout(() => {
-                copyNotification.classList.remove('show');
-            }, 2000);
+            setTimeout(() => copyNotification.classList.remove('show'), 2000);
         }
 
-        // FIXED: Google Sheets Integration with better error handling
-        async function saveToGoogleSheets(sender, receiver) {
-            const now = new Date();
-            const data = {
-                'name': sender || '',
-                'fname': receiver || '',
-                'relation': 'New Year Greeting',
-                'date': now.toLocaleDateString(),
-                'time': now.toLocaleTimeString(),
-                'timestamp': now.toISOString()
-            };
-            
-            return new Promise((resolve) => {
-                try {
-                    // Method 1: Use fetch with no-cors (works on mobile)
-                    fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: new URLSearchParams(data).toString()
-                    }).then(() => {
-                        console.log('Data sent to Google Sheets');
-                        resolve({ success: true });
-                    }).catch(() => {
-                        // If fetch fails, try alternative method
-                        console.log('Trying alternative method...');
-                        alternativeSaveMethod(data, resolve);
-                    });
-                    
-                } catch (error) {
-                    console.log('Error saving to Google Sheets:', error);
-                    // Silent failure - don't show error to user
-                    resolve({ success: false, message: 'Error occurred' });
-                }
-            });
-        }
+        async function handleGenerate() {
+            if (isGenerating) return;
+            const sender = senderInput.value.trim();
+            const receiver = receiverInput.value.trim();
+            if (!sender || !receiver) {
+                alert('Please enter both names!');
+                return;
+            }
 
-        // Alternative save method using Image object (works everywhere)
-        function alternativeSaveMethod(data, resolve) {
+            isGenerating = true;
+            generateBtn.disabled = true;
+            generateBtn.classList.add('btn-loading');
+
             try {
-                const img = new Image();
-                img.src = `${SCRIPT_URL}?${new URLSearchParams(data).toString()}&t=${Date.now()}`;
-                img.style.display = 'none';
-                document.body.appendChild(img);
+                senderNameEl.textContent = sender;
+                receiverNameEl.textContent = receiver;
+
+                const newUrl = `${window.location.origin}${window.location.pathname}?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`;
+                window.history.replaceState({}, '', newUrl);
+                shareUrlInput.value = newUrl;
+
+                await saveToGoogleSheets(sender, receiver);
+
+                generateBtn.classList.remove('btn-loading');
+                generateBtn.classList.add('btn-success');
+                generateBtn.innerHTML = '<i class="fas fa-check"></i> Created!';
+
                 setTimeout(() => {
-                    if (img.parentNode) {
-                        img.parentNode.removeChild(img);
-                    }
-                    resolve({ success: true });
+                    generateBtn.classList.remove('btn-success');
+                    generateBtn.innerHTML = '<i class="fas fa-magic"></i> Create & Share';
+                    generateBtn.disabled = false;
+                    isGenerating = false;
+                    shareContainer.classList.add('visible');
+                    shareContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 1000);
-            } catch (e) {
-                resolve({ success: false });
+            } catch (error) {
+                generateBtn.classList.remove('btn-loading');
+                generateBtn.disabled = false;
+                isGenerating = false;
+                shareContainer.classList.add('visible');
             }
         }
 
-        // Alert function
-        function showAlert(message) {
-            successText.textContent = message;
-            successMessage.style.display = 'block';
+        function handleForward() {
+            senderInput.value = '';
+            receiverInput.value = '';
+            senderInput.focus();
+            shareContainer.classList.remove('visible');
         }
 
-        // Initialize on load
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                }, 500);
-            }, 800);
-            
-            updateShareURL();
-            
-            // Create some background elements
-            createBackgroundElements();
-        });
+        function handleCopy() {
+            shareUrlInput.select();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareUrlInput.value)
+                    .then(() => {
+                        showCopyNotification();
+                        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        setTimeout(() => copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Link', 2000);
+                    });
+            }
+        }
 
-        // Update share URL when inputs change
+        function shareOnWhatsApp() {
+            if (!shareUrlInput.value) {
+                alert('Create a greeting first!');
+                return;
+            }
+            const message = `🎉 Happy New Year 2026! 🎉\n\n${senderNameEl.textContent} sent you a special greeting:\n\n${shareUrlInput.value}`;
+            if (navigator.share) {
+  navigator.share({
+    title: 'Happy New Year 2026',
+    text: 'Happy New Year 2026 🎉 Wishing you love and happiness!',
+    url: window.location.href
+  })
+  .then(() => console.log('Shared successfully'))
+  .catch((error) => console.log('Sharing failed', error));
+} else {
+  alert("Your browser does not support sharing");
+}
+;
+        }
+
+        async function saveToGoogleSheets(sender, receiver) {
+            const data = {
+                name: sender,
+                fname: receiver,
+                relation: 'New Year Greeting',
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString()
+            };
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(data).toString()
+                });
+            } catch (e) { console.log('Save error:', e); }
+        }
+
+        generateBtn.addEventListener('click', handleGenerate);
+        forwardBtn.addEventListener('click', handleForward);
+        copyBtn.addEventListener('click', handleCopy);
+        whatsappBtn.addEventListener('click', shareOnWhatsApp);
+
         senderInput.addEventListener('input', updateShareURL);
         receiverInput.addEventListener('input', updateShareURL);
 
-        // Simple background elements
-        function createBackgroundElements() {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => loadingScreen.style.display = 'none', 500);
+            }, 800);
+            updateNamesFromURL();
+
+            // Create floating hearts
             const bg = document.querySelector('.bg-animation');
-            
-            // Create some hearts
             for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
@@ -1086,13 +633,10 @@ ${currentGreetingData.url}
                     heart.style.animation = `floatUp ${Math.random() * 15 + 10}s linear forwards`;
                     heart.style.animationDelay = `${Math.random() * 5}s`;
                     bg.appendChild(heart);
-                    
-                    setTimeout(() => {
-                        if (heart.parentNode) heart.parentNode.removeChild(heart);
-                    }, 25000);
+                    setTimeout(() => heart.parentNode?.removeChild(heart), 25000);
                 }, i * 500);
             }
-        }
+        });
     </script>
 </body>
 </html>
