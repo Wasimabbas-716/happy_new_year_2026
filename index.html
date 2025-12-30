@@ -36,6 +36,7 @@
             --orange-dark: #CC6600;
             --bg-dark: #0A0A1A;
             --bg-darker: #050510;
+            --bg-light: #1A1A3A;
             --text-light: #FFFFFF;
             --whatsapp: #25D366;
             --whatsapp-dark: #128C7E;
@@ -49,7 +50,12 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 30%, #150A2A 70%, #2A0A15 100%);
+            background: linear-gradient(135deg, 
+                var(--bg-darker) 0%, 
+                var(--bg-dark) 25%, 
+                #1A0A2A 50%, 
+                #2A0A1A 75%, 
+                #150A2A 100%);
             color: var(--text-light);
             overflow-x: hidden;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -71,27 +77,59 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 300%;
-            height: 300%;
+            width: 400%;
+            height: 400%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 51, 102, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(153, 51, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(51, 153, 255, 0.1) 0%, transparent 50%);
-            animation: moveGradient 40s ease-in-out infinite alternate;
+                radial-gradient(circle at 10% 20%, rgba(255, 51, 102, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 30%, rgba(153, 51, 255, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 30% 80%, rgba(51, 153, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255, 153, 51, 0.15) 0%, transparent 55%),
+                radial-gradient(circle at 50% 50%, rgba(51, 255, 153, 0.1) 0%, transparent 60%);
+            animation: moveGradient 60s linear infinite;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 20s linear infinite;
         }
 
         @keyframes moveGradient {
             0% {
                 transform: translate(0, 0) rotate(0deg);
             }
-            33% {
-                transform: translate(-50px, -30px) rotate(0.5deg);
+            100% {
+                transform: translate(-100px, -100px) rotate(1deg);
             }
-            66% {
-                transform: translate(-30px, -50px) rotate(-0.5deg);
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
             }
             100% {
-                transform: translate(-80px, -80px) rotate(1deg);
+                transform: translateY(-100vh) rotate(180deg);
+                opacity: 0;
             }
         }
 
@@ -129,20 +167,47 @@
             }
         }
 
-        @keyframes floatHorizontal {
+        @keyframes floatWave {
             0% {
                 opacity: 0;
-                transform: translateX(100vw) rotate(0deg);
+                transform: translateX(100vw) translateY(100vh) rotate(0deg);
             }
-            20% {
+            15% {
                 opacity: 1;
             }
-            80% {
+            85% {
                 opacity: 1;
             }
             100% {
                 opacity: 0;
-                transform: translateX(-100vw) rotate(360deg);
+                transform: translateX(-100px) translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        @keyframes floatSpiral {
+            0% {
+                opacity: 0;
+                transform: translate(100vw, 50vh) rotate(0deg) scale(0.5);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(75vw, 60vh) rotate(90deg) scale(0.8);
+            }
+            40% {
+                opacity: 1;
+                transform: translate(50vw, 40vh) rotate(180deg) scale(1);
+            }
+            60% {
+                opacity: 1;
+                transform: translate(25vw, 60vh) rotate(270deg) scale(0.8);
+            }
+            80% {
+                opacity: 1;
+                transform: translate(0vw, 50vh) rotate(360deg) scale(0.6);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-100px, 40vh) rotate(450deg) scale(0.4);
             }
         }
 
@@ -203,15 +268,16 @@
 
         @keyframes heartColors {
             0% { color: var(--red); }
-            25% { color: var(--pink); }
-            50% { color: var(--purple); }
-            75% { color: var(--blue); }
+            20% { color: var(--pink); }
+            40% { color: var(--purple); }
+            60% { color: var(--blue); }
+            80% { color: var(--green); }
             100% { color: var(--orange); }
         }
 
         @keyframes sparkle {
             0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+            50% { opacity: 1; transform: scale(1.3); }
         }
 
         @keyframes bounce {
@@ -224,9 +290,15 @@
             50% { border-color: rgba(255, 215, 0, 0.7); }
         }
 
-        @keyframes inputFocus {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
         }
 
         .heart {
@@ -251,12 +323,32 @@
 
         .star {
             position: absolute;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             opacity: 0;
             pointer-events: none;
             z-index: 1;
             color: var(--cyan);
             animation: sparkle 2s infinite alternate;
+        }
+
+        .circle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid;
+            pointer-events: none;
+            z-index: 2;
+            animation: ripple 1s ease-out;
         }
 
         .container {
@@ -283,13 +375,17 @@
                 var(--gold), 
                 var(--red), 
                 var(--pink), 
-                var(--purple)
+                var(--purple),
+                var(--blue),
+                var(--green),
+                var(--orange),
+                var(--gold)
             );
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            background-size: 200% 100%;
-            animation: pulseGlow 3s infinite alternate, shimmer 6s infinite linear;
+            background-size: 300% 100%;
+            animation: pulseGlow 3s infinite alternate, shimmer 8s infinite linear;
             margin-bottom: 0.5rem;
             letter-spacing: 2px;
             position: relative;
@@ -327,7 +423,7 @@
         .main-heading {
             font-size: 2rem;
             margin-bottom: 0.8rem;
-            background: linear-gradient(to right, var(--pink-light), var(--gold));
+            background: linear-gradient(to right, var(--pink-light), var(--gold), var(--cyan));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -352,27 +448,38 @@
             margin: 0 auto 1.5rem;
             animation: fadeInUp 1.2s ease-out 0.2s both;
             font-style: italic;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
         }
 
         .card {
             background: linear-gradient(
                 135deg,
-                rgba(255, 255, 255, 0.08) 0%,
-                rgba(255, 255, 255, 0.04) 100%
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 100%
             );
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 1.8rem 1.2rem;
             margin: 1.5rem auto;
             max-width: 95%;
-            border: 2px solid rgba(255, 215, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.25);
             box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(255, 77, 109, 0.1),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
-            animation: slideUp 1s ease-out, borderGlow 3s infinite alternate;
+                0 15px 35px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(255, 77, 109, 0.15),
+                0 0 80px rgba(199, 125, 255, 0.1),
+                inset 0 0 30px rgba(255, 255, 255, 0.05);
+            animation: slideUp 1s ease-out, borderGlow 4s infinite alternate;
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 45px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(255, 77, 109, 0.2),
+                0 0 90px rgba(199, 125, 255, 0.15);
         }
 
         .card::before {
@@ -381,15 +488,17 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(
                 to right,
                 transparent,
                 var(--gold),
                 var(--red),
                 var(--purple),
+                var(--blue),
                 transparent
             );
+            animation: shimmer 3s infinite linear;
         }
 
         .card::after {
@@ -398,15 +507,17 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(
                 to right,
                 transparent,
+                var(--blue),
                 var(--purple),
                 var(--red),
                 var(--gold),
                 transparent
             );
+            animation: shimmer 3s infinite linear reverse;
         }
 
         .message {
@@ -414,27 +525,38 @@
             text-align: center;
             line-height: 1.6;
             margin-bottom: 2rem;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .personalized-text {
-            font-weight: 700;
-            color: var(--gold-light);
+            font-weight: 800;
+            background: linear-gradient(
+                to right, 
+                var(--red), 
+                var(--pink), 
+                var(--purple),
+                var(--blue)
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             text-shadow: 
-                0 0 10px rgba(255, 215, 0, 0.5),
-                0 0 20px rgba(255, 77, 109, 0.3);
+                0 0 15px rgba(255, 51, 102, 0.5),
+                0 0 30px rgba(255, 102, 178, 0.3);
+            padding: 0 5px;
             position: relative;
             display: inline-block;
+            animation: pulseGlow 2s infinite alternate;
         }
 
         .personalized-text::after {
-            content: '❤️';
+            content: '✨';
             position: absolute;
             right: -25px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 0.8rem;
-            animation: bounce 1.5s infinite;
+            animation: sparkle 2s infinite, bounce 1.5s infinite;
         }
 
         .names-container {
@@ -449,26 +571,26 @@
             padding: 1.5rem 1rem;
             background: linear-gradient(
                 135deg,
-                rgba(255, 255, 255, 0.1) 0%,
-                rgba(255, 255, 255, 0.05) 100%
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.06) 100%
             );
-            border-radius: 15px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 18px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
             box-shadow: 
-                0 5px 15px rgba(0, 0, 0, 0.2),
-                inset 0 0 15px rgba(255, 255, 255, 0.05);
+                0 8px 20px rgba(0, 0, 0, 0.25),
+                inset 0 0 20px rgba(255, 255, 255, 0.08);
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            animation: borderGlow 4s infinite alternate;
+            animation: borderGlow 5s infinite alternate;
         }
 
         .name-tag:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: 
-                0 8px 20px rgba(0, 0, 0, 0.3),
-                0 0 25px rgba(255, 215, 0, 0.2),
-                inset 0 0 20px rgba(255, 255, 255, 0.08);
+                0 12px 30px rgba(0, 0, 0, 0.35),
+                0 0 30px rgba(255, 215, 0, 0.25),
+                inset 0 0 25px rgba(255, 255, 255, 0.12);
         }
 
         .name-tag::before {
@@ -481,10 +603,10 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.15),
                 transparent
             );
-            transition: 0.5s;
+            transition: 0.6s;
         }
 
         .name-tag:hover::before {
@@ -492,7 +614,7 @@
         }
 
         .name-label {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--pink-light);
             margin-bottom: 0.8rem;
             display: flex;
@@ -509,10 +631,20 @@
 
         .name-value {
             font-size: 1.8rem;
-            color: var(--gold);
+            background: linear-gradient(
+                to right, 
+                var(--gold), 
+                var(--orange), 
+                var(--gold-light)
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             font-weight: 700;
             word-break: break-word;
-            text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+            text-shadow: 
+                0 2px 10px rgba(255, 165, 0, 0.4),
+                0 4px 20px rgba(255, 215, 0, 0.2);
             letter-spacing: 0.5px;
         }
 
@@ -532,24 +664,24 @@
             padding: 1.2rem 1rem 1.2rem 3rem;
             border-radius: 15px;
             border: 2px solid rgba(255, 215, 0, 0.3);
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35);
             color: white;
             font-size: 1.1rem;
             font-weight: 500;
             transition: all 0.3s ease;
             box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.2),
-                inset 0 0 10px rgba(255, 255, 255, 0.05);
+                0 5px 20px rgba(0, 0, 0, 0.25),
+                inset 0 0 12px rgba(255, 255, 255, 0.08);
         }
 
         .input-wrapper input:focus {
             outline: none;
             border-color: var(--gold);
             box-shadow: 
-                0 0 20px rgba(255, 215, 0, 0.3),
-                inset 0 0 15px rgba(255, 215, 0, 0.1);
-            background: rgba(0, 0, 0, 0.4);
-            animation: inputFocus 0.5s ease;
+                0 0 25px rgba(255, 215, 0, 0.4),
+                inset 0 0 20px rgba(255, 215, 0, 0.15);
+            background: rgba(0, 0, 0, 0.45);
+            transform: scale(1.02);
         }
 
         .input-wrapper input::placeholder {
@@ -574,6 +706,12 @@
             transform: translateY(-50%);
             color: var(--gold);
             font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .input-wrapper input:focus + .input-icon {
+            transform: translateY(-50%) scale(1.2);
+            color: var(--gold-light);
         }
 
         .action-buttons {
@@ -601,7 +739,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .btn::before {
@@ -614,10 +752,10 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.25),
                 transparent
             );
-            transition: 0.5s;
+            transition: 0.6s;
         }
 
         .btn:hover::before {
@@ -625,12 +763,12 @@
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
 
         .btn:active {
-            transform: translateY(0);
+            transform: translateY(-2px);
         }
 
         .btn-primary {
@@ -642,33 +780,34 @@
             );
             color: white;
             box-shadow: 
-                0 6px 20px rgba(255, 77, 109, 0.4),
-                0 0 25px rgba(255, 215, 0, 0.2);
-            border: 2px solid rgba(255, 215, 0, 0.3);
+                0 8px 25px rgba(255, 77, 109, 0.5),
+                0 0 35px rgba(255, 215, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.4);
         }
 
         .btn-secondary {
             background: linear-gradient(
                 135deg,
-                rgba(255, 255, 255, 0.15),
-                rgba(255, 255, 255, 0.08)
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.1)
             );
             color: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
         }
 
         .btn-whatsapp {
             background: linear-gradient(
                 135deg,
                 var(--whatsapp),
-                var(--whatsapp-dark)
+                var(--whatsapp-dark),
+                #075E54
             );
             color: white;
             box-shadow: 
-                0 6px 20px rgba(37, 211, 102, 0.4),
-                0 0 25px rgba(37, 211, 102, 0.2);
-            border: 2px solid rgba(37, 211, 102, 0.3);
+                0 8px 25px rgba(37, 211, 102, 0.5),
+                0 0 35px rgba(37, 211, 102, 0.3);
+            border: 2px solid rgba(37, 211, 102, 0.4);
         }
 
         .btn-loading::after {
@@ -686,11 +825,12 @@
             background: linear-gradient(
                 135deg,
                 #4CAF50,
-                #2E7D32
+                #2E7D32,
+                #1B5E20
             ) !important;
             box-shadow: 
-                0 6px 20px rgba(76, 175, 80, 0.4),
-                0 0 25px rgba(76, 175, 80, 0.2) !important;
+                0 8px 25px rgba(76, 175, 80, 0.5),
+                0 0 35px rgba(76, 175, 80, 0.3) !important;
         }
 
         .share-container {
@@ -722,14 +862,14 @@
             padding: 1.2rem;
             border-radius: 15px;
             border: 2px solid rgba(255, 215, 0, 0.3);
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35);
             color: white;
             text-align: center;
             font-size: 1rem;
             font-weight: 500;
             box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.2),
-                inset 0 0 10px rgba(255, 255, 255, 0.05);
+                0 5px 20px rgba(0, 0, 0, 0.25),
+                inset 0 0 12px rgba(255, 255, 255, 0.08);
         }
 
         .copy-notification {
@@ -737,7 +877,11 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(-100px);
-            background: rgba(76, 175, 80, 0.95);
+            background: linear-gradient(
+                135deg,
+                rgba(76, 175, 80, 0.95),
+                rgba(46, 125, 50, 0.95)
+            );
             color: white;
             padding: 1.2rem 2rem;
             border-radius: 12px;
@@ -747,9 +891,9 @@
             transition: transform 0.3s ease-out;
             backdrop-filter: blur(10px);
             box-shadow: 
-                0 8px 25px rgba(76, 175, 80, 0.4),
-                0 0 30px rgba(76, 175, 80, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+                0 10px 30px rgba(76, 175, 80, 0.5),
+                0 0 40px rgba(76, 175, 80, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.25);
             display: flex;
             align-items: center;
             gap: 0.8rem;
@@ -777,22 +921,23 @@
         .loader {
             width: 70px;
             height: 70px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid var(--gold);
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--gold);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 1.2s linear infinite;
             position: relative;
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.4);
         }
 
         .loader::before {
             content: '';
             position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            border: 4px solid transparent;
-            border-top: 4px solid var(--purple);
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 5px solid transparent;
+            border-top: 5px solid var(--purple);
             border-radius: 50%;
             animation: spin 1.5s linear infinite reverse;
         }
@@ -811,6 +956,10 @@
             font-size: 0.9rem;
             padding: 1rem;
             border-top: 1px solid rgba(255, 215, 0, 0.2);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            margin: 2rem auto 0;
+            max-width: 95%;
         }
 
         footer p {
@@ -882,6 +1031,7 @@
   
     <div class="bg-animation" id="bg-animation">
         <div class="moving-gradient"></div>
+        <div class="particles" id="particles"></div>
     </div>
 
     <div class="container">
@@ -940,9 +1090,9 @@
                     <div class="share-box">
                         <input type="text" id="share-url" readonly>
                         <button id="copy-btn" class="btn"
-                            style="background: linear-gradient(135deg, var(--purple), var(--purple-dark)); 
+                            style="background: linear-gradient(135deg, var(--purple), var(--purple-dark), var(--blue)); 
                                    color: white;
-                                   border: 2px solid rgba(153, 51, 255, 0.3);">
+                                   border: 2px solid rgba(153, 51, 255, 0.4);">
                             <i class="fas fa-copy"></i> Copy Link
                         </button>
                     </div>
@@ -956,7 +1106,7 @@
         </main>
 
         <footer>
-            <p>Made with <i class="fas fa-heart" style="color: var(--red);"></i> for 2026</p>
+            <p>Made with <b>Wesha</b> <i class="fas fa-heart" style="color: var(--red);"></i> for 2026</p>
             <p>Spread love & create beautiful memories</p>
         </footer>
     </div>
@@ -976,10 +1126,11 @@
         const loadingScreen = document.getElementById('loading');
         const shareContainer = document.getElementById('share-container');
         const copyNotification = document.getElementById('copyNotification');
+        const particlesContainer = document.getElementById('particles');
 
         let isGenerating = false;
         let elementCount = 0;
-        const maxElements = 40; // Reasonable limit to prevent lag
+        const maxElements = 60;
 
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
@@ -1014,62 +1165,123 @@
             setTimeout(() => copyNotification.classList.remove('show'), 2000);
         }
 
-        function createFloatingElement(type) {
-            if (elementCount >= maxElements) return;
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.backgroundColor = getRandomColor();
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function createFloatingElement(type, x = null, y = null, isClickEffect = false) {
+            if (elementCount >= maxElements && !isClickEffect) return;
             
             const bg = document.getElementById('bg-animation');
             const element = document.createElement('div');
             
+            const types = {
+                'heart': { class: 'heart', symbol: '❤', size: 10 },
+                'sparkle': { class: 'sparkle', symbol: '✨', size: 8 },
+                'star': { class: 'star', symbol: '⭐', size: 9 },
+                'circle': { class: 'circle', symbol: null, size: 20 }
+            };
+            
+            const config = types[type];
+            
+            element.className = config.class;
+            
+            if (config.symbol) {
+                element.innerHTML = config.symbol;
+                element.style.fontSize = (Math.random() * config.size + config.size) + 'px';
+            } else {
+                element.style.width = (Math.random() * 20 + 10) + 'px';
+                element.style.height = element.style.width;
+                element.style.backgroundColor = getRandomColor();
+            }
+            
+            if (type === 'circle') {
+                element.style.backgroundColor = getRandomColor();
+            }
+            
             if (type === 'heart') {
-                element.className = 'heart';
-                element.innerHTML = '❤';
-                element.style.fontSize = (Math.random() * 10 + 10) + 'px';
                 element.style.color = getRandomColor();
-                
-                // Random animation type
-                const animations = ['floatUp', 'floatDiagonal', 'floatHorizontal'];
-                const animType = animations[Math.floor(Math.random() * animations.length)];
-                const duration = Math.random() * 8 + 6;
-                
+            }
+            
+            const animations = ['floatUp', 'floatDiagonal', 'floatWave', 'floatSpiral'];
+            const animType = isClickEffect ? 'floatUp' : animations[Math.floor(Math.random() * animations.length)];
+            const duration = isClickEffect ? 2 + Math.random() * 2 : Math.random() * 8 + 6;
+            
+            if (x && y) {
+                element.style.left = x + 'px';
+                element.style.top = y + 'px';
+                element.style.position = 'fixed';
+                element.style.zIndex = '1000';
+            } else {
+                element.style.left = Math.random() * 100 + 'vw';
+            }
+            
+            if (type === 'heart') {
                 element.style.animation = animType + ' ' + duration + 's linear forwards, heartColors ' + (Math.random() * 4 + 3) + 's infinite linear';
-            }
-            else if (type === 'sparkle') {
-                element.className = 'sparkle';
-                element.innerHTML = '✨';
-                element.style.fontSize = (Math.random() * 8 + 8) + 'px';
-                
-                const duration = Math.random() * 10 + 8;
-                element.style.animation = 'floatUp ' + duration + 's linear forwards, sparkle ' + (Math.random() * 2 + 1) + 's infinite alternate';
-            }
-            else if (type === 'star') {
-                element.className = 'star';
-                element.innerHTML = '⭐';
-                element.style.fontSize = (Math.random() * 6 + 6) + 'px';
-                
-                const duration = Math.random() * 12 + 10;
-                element.style.animation = 'floatDiagonal ' + duration + 's linear forwards, sparkle ' + (Math.random() * 2.5 + 1.5) + 's infinite alternate';
+            } else if (type === 'circle') {
+                element.style.animation = animType + ' ' + duration + 's linear forwards';
+            } else {
+                element.style.animation = animType + ' ' + duration + 's linear forwards, sparkle ' + (Math.random() * 2 + 1) + 's infinite alternate';
             }
             
-            element.style.left = Math.random() * 100 + 'vw';
             bg.appendChild(element);
-            elementCount++;
+            if (!isClickEffect) elementCount++;
             
-            // Cleanup after animation
             setTimeout(() => {
                 if (element.parentNode) {
                     element.parentNode.removeChild(element);
-                    elementCount--;
+                    if (!isClickEffect) elementCount--;
                 }
-            }, 15000);
+            }, duration * 1000 + 1000);
+        }
+
+        function createRipple(x, y, color) {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.borderColor = color;
+            ripple.style.width = '50px';
+            ripple.style.height = '50px';
+            ripple.style.position = 'fixed';
+            ripple.style.zIndex = '1000';
+            
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => {
+                if (ripple.parentNode) {
+                    ripple.parentNode.removeChild(ripple);
+                }
+            }, 1000);
+        }
+
+        function createClickEffect(x, y) {
+            const types = ['heart', 'sparkle', 'star', 'circle'];
+            const count = Math.floor(Math.random() * 3) + 2;
+            
+            for (let i = 0; i < count; i++) {
+                const type = types[Math.floor(Math.random() * types.length)];
+                createFloatingElement(type, x, y, true);
+            }
+            
+            createRipple(x, y, getRandomColor());
         }
 
         function getRandomColor() {
-            const colors = ['#FF3366', '#FF66B2', '#9933FF', '#3399FF', '#33FF99', '#FF9933', '#FFD700'];
+            const colors = ['#FF3366', '#FF66B2', '#9933FF', '#3399FF', '#33FF99', '#FF9933', '#FFD700', '#33FFFF'];
             return colors[Math.floor(Math.random() * colors.length)];
         }
 
-        function createConfettiBurst(x, y, count = 15) {
-            const symbols = ['❤', '✨', '⭐', '🎉'];
+        function createConfettiBurst(x, y, count = 20) {
+            const symbols = ['❤', '✨', '⭐', '🎉', '🌟', '💫'];
             
             for (let i = 0; i < count; i++) {
                 const confetti = document.createElement('div');
@@ -1079,11 +1291,11 @@
                 confetti.style.top = y + 'px';
                 confetti.style.position = 'fixed';
                 confetti.style.zIndex = '1000';
-                confetti.style.fontSize = (Math.random() * 12 + 8) + 'px';
+                confetti.style.fontSize = (Math.random() * 15 + 10) + 'px';
                 confetti.style.color = getRandomColor();
                 
                 const angle = Math.random() * Math.PI * 2;
-                const speed = 1 + Math.random() * 2;
+                const speed = 1 + Math.random() * 3;
                 const dx = Math.cos(angle) * speed;
                 const dy = Math.sin(angle) * speed;
                 
@@ -1096,7 +1308,7 @@
                 const animate = () => {
                     posX += dx;
                     posY += dy + 0.1;
-                    opacity -= 0.03;
+                    opacity -= 0.02;
                     
                     confetti.style.left = posX + 'px';
                     confetti.style.top = posY + 'px';
@@ -1143,7 +1355,7 @@
                 createConfettiBurst(
                     generateBtn.offsetLeft + generateBtn.offsetWidth / 2, 
                     generateBtn.offsetTop + generateBtn.offsetHeight / 2,
-                    20
+                    25
                 );
 
                 setTimeout(() => {
@@ -1171,7 +1383,7 @@
             createConfettiBurst(
                 forwardBtn.offsetLeft + forwardBtn.offsetWidth / 2, 
                 forwardBtn.offsetTop + forwardBtn.offsetHeight / 2,
-                10
+                15
             );
         }
 
@@ -1185,7 +1397,7 @@
                         createConfettiBurst(
                             copyBtn.offsetLeft + copyBtn.offsetWidth / 2, 
                             copyBtn.offsetTop + copyBtn.offsetHeight / 2,
-                            15
+                            20
                         );
                         setTimeout(() => {
                             copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Link';
@@ -1217,7 +1429,7 @@
             createConfettiBurst(
                 whatsappBtn.offsetLeft + whatsappBtn.offsetWidth / 2, 
                 whatsappBtn.offsetTop + whatsappBtn.offsetHeight / 2,
-                15
+                20
             );
         }
 
@@ -1253,7 +1465,6 @@
         senderInput.addEventListener('input', updateShareURL);
         receiverInput.addEventListener('input', updateShareURL);
 
-        // Add focus effects to inputs
         senderInput.addEventListener('focus', () => {
             senderInput.parentElement.style.transform = 'scale(1.02)';
         });
@@ -1278,51 +1489,69 @@
                     createConfettiBurst(
                         window.innerWidth / 2,
                         window.innerHeight / 2,
-                        25
+                        30
                     );
                 }, 500);
             }, 1200);
             
             updateNamesFromURL();
+            createParticles();
 
             // Create initial floating elements
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
-                    const types = ['heart', 'sparkle', 'star'];
+                    const types = ['heart', 'sparkle', 'star', 'circle'];
                     const type = types[Math.floor(Math.random() * types.length)];
                     createFloatingElement(type);
-                }, i * 200);
+                }, i * 300);
             }
 
-            // Continuously add new elements
+            // Continuously add new elements - FOREVER
             setInterval(() => {
                 if (elementCount < maxElements) {
-                    const types = ['heart', 'sparkle', 'star'];
+                    const types = ['heart', 'sparkle', 'star', 'circle'];
                     const type = types[Math.floor(Math.random() * types.length)];
                     createFloatingElement(type);
                 }
-            }, 800);
+            }, 500); // Add new element every 500ms
 
-            // Add click effects
+            // Add click/touch effects
             document.addEventListener('click', (e) => {
+                createClickEffect(e.clientX, e.clientY);
+                
                 if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') {
-                    createConfettiBurst(e.clientX, e.clientY, 8);
+                    createConfettiBurst(e.clientX, e.clientY, 10);
                 }
+            });
+
+            // Touch support for mobile
+            document.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                createClickEffect(touch.clientX, touch.clientY);
             });
 
             // Add hover effects to cards
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 card.addEventListener('mouseenter', () => {
-                    card.style.transform = 'translateY(-5px)';
-                    card.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(255, 77, 109, 0.15)';
+                    card.style.transform = 'translateY(-8px)';
                 });
                 
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'translateY(0)';
-                    card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 77, 109, 0.1)';
                 });
             });
+        });
+
+        // Add keyboard interaction effects
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && (document.activeElement === senderInput || document.activeElement === receiverInput)) {
+                createConfettiBurst(
+                    document.activeElement.getBoundingClientRect().left + document.activeElement.offsetWidth / 2,
+                    document.activeElement.getBoundingClientRect().top + document.activeElement.offsetHeight / 2,
+                    8
+                );
+            }
         });
     </script>
 </body>
